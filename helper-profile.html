@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quelpit — Helper Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0A0A0A;
+    --white: #FAFAFA;
+    --grey-100: #F4F4F2;
+    --grey-200: #E8E8E4;
+    --grey-400: #9E9E96;
+    --grey-600: #5A5A54;
+    --accent: #2D6A4F;
+    --accent-light: #52B788;
+    --accent-bg: #F0FAF4;
+    --warm: #F7F3EE;
+    --font-display: 'Sora', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--white);
+    color: var(--black);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    transition: all 0.3s;
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--white);
+    letter-spacing: -0.5px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .nav-logo span { color: var(--accent-light); }
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--warm);
+    color: var(--black);
+    padding: 11px 24px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s;
+    border: 1.5px solid var(--warm);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .nav-cta:hover {
+    background: var(--accent-light);
+    border-color: var(--accent-light);
+  }
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--white);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mobile-menu {
+    position: fixed;
+    top: 65px; left: 0; right: 0;
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px 24px 24px;
+    background: rgba(10,10,10,0.98);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    transform: translateY(-120%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .mobile-menu.show { transform: translateY(0); opacity: 1; pointer-events: auto; }
+  .mobile-menu a {
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    transition: color 0.2s;
+  }
+  .mobile-menu a:last-child { border-bottom: none; }
+  .mobile-menu a:hover { color: var(--white); }
+
+  /* PROFILE HEADER — DARK */
+  .profile-header {
+    background: var(--black);
+    padding: 140px 24px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .profile-header::before {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(82,183,136,0.08) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    pointer-events: none;
+  }
+  .profile-header-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    gap: 48px;
+    align-items: flex-start;
+  }
+  .profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(82,183,136,0.15);
+    border: 3px solid rgba(82,183,136,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .profile-avatar-placeholder {
+    font-family: var(--font-display);
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--accent-light);
+  }
+  .profile-info { flex: 1; }
+  .profile-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(82,183,136,0.15);
+    border: 1px solid rgba(82,183,136,0.3);
+    color: var(--accent-light);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .profile-name {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .profile-tagline {
+    font-size: 16px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 28px;
+  }
+  .profile-stats {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .profile-stat { text-align: left; }
+  .profile-stat-number {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+  .profile-stat-number .accent { color: var(--accent-light); }
+  .profile-stat-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    margin-top: 4px;
+  }
+
+  /* PROFILE DETAILS STRIP */
+  .profile-details {
+    background: rgba(255,255,255,0.04);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 20px 24px;
+  }
+  .profile-details-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .profile-detail-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+  }
+  .profile-detail-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent-light);
+    flex-shrink: 0;
+  }
+
+  /* SERVICES TAGS */
+  .profile-services {
+    background: var(--black);
+    padding: 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .profile-services-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .services-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-right: 4px;
+  }
+  .service-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 14px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.7);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* REVIEWS SECTION — LIGHT */
+  .reviews-section {
+    background: var(--white);
+    padding: 72px 24px;
+  }
+  .reviews-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .reviews-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .reviews-title {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 3vw, 36px);
+    font-weight: 700;
+    color: var(--black);
+    letter-spacing: -1px;
+    margin-bottom: 4px;
+  }
+  .reviews-sub {
+    font-size: 14px;
+    color: var(--grey-400);
+    font-style: italic;
+  }
+  .reviews-avg {
+    text-align: right;
+  }
+  .reviews-avg-number {
+    font-family: var(--font-display);
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--black);
+    letter-spacing: -2px;
+    line-height: 1;
+  }
+  .reviews-avg-stars {
+    display: flex;
+    gap: 4px;
+    justify-content: flex-end;
+    margin: 6px 0 4px;
+  }
+  .star {
+    width: 18px; height: 18px;
+    color: var(--accent-light);
+    font-size: 16px;
+  }
+  .star-empty { color: var(--grey-200); }
+  .reviews-avg-label {
+    font-size: 13px;
+    color: var(--grey-400);
+  }
+
+  /* REVIEW CARDS */
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+  }
+  .review-card {
+    background: var(--grey-100);
+    border-radius: 20px;
+    padding: 28px;
+    transition: background 0.2s;
+  }
+  .review-card:hover { background: var(--accent-bg); }
+  .review-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .review-stars {
+    display: flex;
+    gap: 3px;
+  }
+  .review-star {
+    font-size: 14px;
+    color: var(--accent-light);
+  }
+  .review-star-empty { color: var(--grey-200); }
+  .review-date {
+    font-size: 12px;
+    color: var(--grey-400);
+  }
+  .review-service {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-bg);
+    padding: 3px 10px;
+    border-radius: 100px;
+    margin-bottom: 12px;
+  }
+  .review-comment {
+    font-size: 15px;
+    color: var(--grey-600);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .review-author {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--grey-400);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .review-verified {
+    font-size: 11px;
+    color: var(--accent);
+    background: var(--accent-bg);
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-weight: 600;
+  }
+
+  /* EMPTY STATE */
+  .reviews-empty {
+    text-align: center;
+    padding: 80px 24px;
+    color: var(--grey-400);
+  }
+  .reviews-empty-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--grey-600);
+    margin-bottom: 8px;
+  }
+  .reviews-empty-sub { font-size: 15px; }
+
+  /* PORTABLE LINK SECTION */
+  .portable-section {
+    background: var(--grey-100);
+    padding: 48px 24px;
+    text-align: center;
+  }
+  .portable-inner { max-width: 600px; margin: 0 auto; }
+  .portable-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--black);
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .portable-sub {
+    font-size: 14px;
+    color: var(--grey-600);
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+  .portable-url {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--white);
+    border: 1.5px solid var(--grey-200);
+    border-radius: 100px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--grey-600);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .portable-url:hover { border-color: var(--accent); color: var(--accent); }
+  .portable-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent-light);
+    flex-shrink: 0;
+  }
+
+  /* CTA */
+  .profile-cta {
+    background: var(--black);
+    padding: 64px 24px;
+    text-align: center;
+  }
+  .profile-cta h2 {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 3vw, 36px);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .profile-cta p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 32px;
+  }
+  .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 32px;
+    border-radius: 100px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-family: var(--font-body);
+    min-width: 160px;
+    border: 1.5px solid transparent;
+    cursor: pointer;
+  }
+  .btn-light {
+    background: var(--warm);
+    color: var(--black);
+    border-color: var(--warm);
+  }
+  .btn-light:hover { background: var(--accent-light); border-color: var(--accent-light); transform: translateY(-1px); }
+  .btn-outline-white {
+    background: transparent;
+    color: var(--white);
+    border-color: rgba(255,255,255,0.3);
+  }
+  .btn-outline-white:hover { border-color: var(--white); transform: translateY(-1px); }
+
+  /* FOOTER */
+  footer { background: var(--black); padding: 48px 24px 32px; border-top: 1px solid rgba(255,255,255,0.06); }
+  .footer-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 48px;
+    flex-wrap: wrap;
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    margin-bottom: 24px;
+  }
+  .footer-brand { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+  .footer-brand span { color: var(--accent-light); }
+  .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.3); max-width: 220px; line-height: 1.6; }
+  .footer-links { display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { font-size: 13px; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--white); }
+  .footer-bottom { max-width: 1080px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-copy { font-size: 12px; color: rgba(255,255,255,0.2); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    .profile-header-inner { flex-direction: column; gap: 24px; }
+    .profile-stats { gap: 24px; }
+    .reviews-header { flex-direction: column; align-items: flex-start; }
+    .reviews-avg { text-align: left; }
+    .reviews-avg-stars { justify-content: flex-start; }
+    .footer-inner { flex-direction: column; gap: 24px; }
+    .footer-bottom { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Quelpit<span>.</span></a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="helpers.html">Helpers</a>
+      <a href="services.html">Services</a>
+      <a href="how-it-works.html">How it works</a>
+    </div>
+    <a href="https://forms.gle/yrHXEJniFoMprRH49" class="nav-cta" target="_blank">Book a helper</a>
+    <button class="hamburger" type="button" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu">
+  <a href="helpers.html">All helpers</a>
+  <a href="services.html">Services</a>
+  <a href="how-it-works.html">How it works</a>
+  <a href="https://forms.gle/yrHXEJniFoMprRH49" target="_blank">Book a helper</a>
+</div>
+
+<!-- PROFILE HEADER — DARK -->
+<section class="profile-header">
+  <div class="profile-header-inner">
+    <div class="profile-avatar">
+      <!-- Replace with: <img src="helper-photo.jpg" alt="Helper name"> -->
+      <div class="profile-avatar-placeholder">R</div>
+    </div>
+    <div class="profile-info">
+      <div class="profile-badge">Quelpit Certified Helper</div>
+      <div class="profile-name">Raj Sharma</div>
+      <div class="profile-tagline">Moving & Cleaning · Scarborough, Toronto</div>
+      <div class="profile-stats">
+        <div class="profile-stat">
+          <div class="profile-stat-number"><span class="accent">4.9</span></div>
+          <div class="profile-stat-label">average rating</div>
+        </div>
+        <div class="profile-stat">
+          <div class="profile-stat-number">34</div>
+          <div class="profile-stat-label">completed bookings</div>
+        </div>
+        <div class="profile-stat">
+          <div class="profile-stat-number">100%</div>
+          <div class="profile-stat-label">would rebook</div>
+        </div>
+        <div class="profile-stat">
+          <div class="profile-stat-number">Jan 2026</div>
+          <div class="profile-stat-label">member since</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DETAILS STRIP -->
+<div class="profile-details" style="background: var(--black); border-bottom: 1px solid rgba(255,255,255,0.06);">
+  <div class="profile-details-inner">
+    <div class="profile-detail-item">
+      <div class="profile-detail-dot"></div>
+      <span style="color:rgba(255,255,255,0.5); font-size:13px;">Background checked</span>
+    </div>
+    <div class="profile-detail-item">
+      <div class="profile-detail-dot"></div>
+      <span style="color:rgba(255,255,255,0.5); font-size:13px;">Verified reviews only</span>
+    </div>
+    <div class="profile-detail-item">
+      <div class="profile-detail-dot"></div>
+      <span style="color:rgba(255,255,255,0.5); font-size:13px;">Area: Scarborough · North York</span>
+    </div>
+    <div class="profile-detail-item">
+      <div class="profile-detail-dot"></div>
+      <span style="color:rgba(255,255,255,0.5); font-size:13px;">Available: Weekends + Evenings</span>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div class="profile-services">
+  <div class="profile-services-inner">
+    <span class="services-label">Services</span>
+    <span class="service-tag">Moving & Heavy Labour</span>
+    <span class="service-tag">Deep Cleaning</span>
+    <span class="service-tag">General Help</span>
+    <span class="service-tag">Furniture Assembly</span>
+  </div>
+</div>
+
+<!-- REVIEWS SECTION — LIGHT -->
+<section class="reviews-section">
+  <div class="reviews-inner">
+    <div class="reviews-header">
+      <div>
+        <div class="reviews-title">Customer reviews</div>
+        <div class="reviews-sub">All reviews collected from verified Quelpit bookings only</div>
+      </div>
+      <div class="reviews-avg">
+        <div class="reviews-avg-number">4.9</div>
+        <div class="reviews-avg-stars">
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+        </div>
+        <div class="reviews-avg-label">34 reviews</div>
+      </div>
+    </div>
+
+    <div class="reviews-grid">
+
+      <!-- REVIEW 1 -->
+      <div class="review-card">
+        <div class="review-card-header">
+          <div class="review-stars">
+            <span class="review-star">★</span>
+            <span class="review-star">★</span>
+            <span class="review-star">★</span>
+            <span class="review-star">★</span>
+            <span class="review-star">★</span>
+          </div>
+          <div class="review-date">May 2026</div>
+        </div>
+        <div class="review-service">Moving & Heavy Labour</div>
+        <div class="review-comment">"Raj was on time, worked incredibly hard, and was so careful with all our furniture. Our 2 bedroom move was done in under 3 hours. Would book again without hesitation."</div>
+        <div class="review-author">
+          Sarah M. <span class="review-verified">Verified booking</span>
+        </div>
+      </div>
+
+      <!-- REVIEW 2 -->
+      <div class="review-card">
+        <div class="review-card-header">
+          <div class="review-stars">
+            <span class="review-star">★</span>
+            <span class="review-star">★</span>
+            <span class="review-star">★</span>
+            <span class="review-star">★</span>
+            <span class="review-star">★</span>
+          </div>
+          <div class="review-date">April 2026</div>
+        </div>
+        <div class="review-service">Deep Cleaning</div>
+        <div class="review-comment">"Left my apartment spotless for the landlord inspection. Got my full deposit back. Raj was professional, thorough, and finished ahead of schedule."</div>
+        <div class="review-author">
+          James K. <span class="review-verified">Verified booking</span>
+        </div>
+      </div>
+
+      <!-- REVIEW 3 -->
+      <div class="review-card">
+        <div class="review-card-header">
+          <div class="review-stars">
+            <span class="review-star">★</span>
+            <span class="review-star">★</span>
+            <span class="review-star">★</span>
+            <span class="review-star">★</span>
+            <span class="review-star">★</span>
+          </div>
+          <div class="review-date">April 2026</div>
+        </div>
+        <div class="review-service">Furniture Assembly</div>
+        <div class="review-comment">"Had four IKEA pieces to assemble. Raj showed up with a great attitude and got everything done in 2 hours. Highly recommend."</div>
+        <div class="review-author">
+          Priya D. <span class="review-verified">Verified booking</span>
+        </div>
+      </div>
+
+      <!-- REVIEW 4 -->
+      <div class="review-card">
+        <div class="review-card-header">
+          <div class="review-stars">
+            <span class="review-star">★</span>
+            <span class="review-star">★</span>
+            <span class="review-star">★</span>
+            <span class="review-star">★</span>
+            <span class="review-star review-star-empty">★</span>
+          </div>
+          <div class="review-date">March 2026</div>
+        </div>
+        <div class="review-service">Moving & Heavy Labour</div>
+        <div class="review-comment">"Really solid work, very strong and efficient. Arrived a few minutes late but communicated ahead of time so no issue. Would use again."</div>
+        <div class="review-author">
+          Tom R. <span class="review-verified">Verified booking</span>
+        </div>
+      </div>
+
+      <!-- REVIEW 5 -->
+      <div class="review-card">
+        <div class="review-card-header">
+          <div class="review-stars">
+            <span class="review-star">★</span>
+            <span class="review-star">★</span>
+            <span class="review-star">★</span>
+            <span class="review-star">★</span>
+            <span class="review-star">★</span>
+          </div>
+          <div class="review-date">March 2026</div>
+        </div>
+        <div class="review-service">General Help</div>
+        <div class="review-comment">"Needed help clearing out a storage unit. Raj worked fast, was careful about what to keep vs donate, and was really pleasant throughout. Great experience."</div>
+        <div class="review-author">
+          Linda C. <span class="review-verified">Verified booking</span>
+        </div>
+      </div>
+
+      <!-- REVIEW 6 -->
+      <div class="review-card">
+        <div class="review-card-header">
+          <div class="review-stars">
+            <span class="review-star">★</span>
+            <span class="review-star">★</span>
+            <span class="review-star">★</span>
+            <span class="review-star">★</span>
+            <span class="review-star">★</span>
+          </div>
+          <div class="review-date">February 2026</div>
+        </div>
+        <div class="review-service">Deep Cleaning</div>
+        <div class="review-comment">"Booked for a move-in clean and was blown away. Everything was spotless. Raj is clearly proud of his work and it shows. Already booked again for next month."</div>
+        <div class="review-author">
+          Anna S. <span class="review-verified">Verified booking</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PORTABLE LINK -->
+<section class="portable-section">
+  <div class="portable-inner">
+    <div class="portable-title">Share this profile</div>
+    <div class="portable-sub">This is a portable Quelpit profile. Raj owns these reviews — they travel with them everywhere, forever.</div>
+    <a href="https://quelpit.ca/helpers/raj-sharma" class="portable-url" onclick="navigator.clipboard.writeText(this.href); this.textContent='Link copied!'; setTimeout(()=>this.textContent='quelpit.ca/helpers/raj-sharma',2000); return false;">
+      <span class="portable-dot"></span>
+      quelpit.ca/helpers/raj-sharma
+    </a>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="profile-cta">
+  <div class="container" style="max-width:1080px; margin:0 auto;">
+    <h2>Want Raj for your next booking?</h2>
+    <p>Book a helper on Quelpit and request Raj by name.</p>
+    <div class="cta-buttons">
+      <a href="https://forms.gle/yrHXEJniFoMprRH49" class="btn btn-light" target="_blank">Book a helper</a>
+      <a href="helpers.html" class="btn btn-outline-white">See all helpers</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Quelpit<span>.</span></div>
+      <div class="footer-tagline">Affordable help when you need it, real income when you want it.</div>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="helpers.html">Helpers</a>
+      <a href="services.html">Services</a>
+      <a href="how-it-works.html">How it works</a>
+      <a href="mailto:support@quelpit.ca">support@quelpit.ca</a>
+    </div>
+    <div class="footer-links">
+      <a href="https://instagram.com/justquelpit" target="_blank">Instagram</a>
+      <a href="https://tiktok.com/@justquelpit" target="_blank">TikTok</a>
+      <a href="https://facebook.com/justquelpit" target="_blank">Facebook</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Quelpit. All rights reserved. &nbsp;|&nbsp; <a href="privacy-policy.html" style="color:rgba(255,255,255,0.25);text-decoration:none;">Privacy</a> &nbsp;|&nbsp; <a href="terms.html" style="color:rgba(255,255,255,0.25);text-decoration:none;">Terms</a></div>
+  </div>
+</footer>
+
+<script>
+  const hamburger = document.querySelector('.hamburger');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', () => {
+      const isOpen = hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('show', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('show');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+</script>
+
+</body>
+</html>

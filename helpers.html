@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quelpit — Our Helpers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0A0A0A;
+    --white: #FAFAFA;
+    --grey-100: #F4F4F2;
+    --grey-200: #E8E8E4;
+    --grey-400: #9E9E96;
+    --grey-600: #5A5A54;
+    --accent: #2D6A4F;
+    --accent-light: #52B788;
+    --accent-bg: #F0FAF4;
+    --warm: #F7F3EE;
+    --font-display: 'Sora', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--white);
+    color: var(--black);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    transition: all 0.3s;
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--white);
+    letter-spacing: -0.5px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .nav-logo span { color: var(--accent-light); }
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a.active { color: var(--white); }
+  .nav-cta {
+    background: var(--warm);
+    color: var(--black);
+    padding: 11px 24px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s;
+    border: 1.5px solid var(--warm);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { background: var(--accent-light); border-color: var(--accent-light); }
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--white);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mobile-menu {
+    position: fixed;
+    top: 65px; left: 0; right: 0;
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px 24px 24px;
+    background: rgba(10,10,10,0.98);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    transform: translateY(-120%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .mobile-menu.show { transform: translateY(0); opacity: 1; pointer-events: auto; }
+  .mobile-menu a {
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    transition: color 0.2s;
+  }
+  .mobile-menu a:last-child { border-bottom: none; }
+  .mobile-menu a:hover { color: var(--white); }
+
+  /* PAGE HERO — DARK */
+  .page-hero {
+    background: var(--black);
+    padding: 140px 24px 72px;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(82,183,136,0.08) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    pointer-events: none;
+  }
+  .page-hero-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .page-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    margin-bottom: 16px;
+  }
+  .page-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 700;
+    letter-spacing: -2px;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .page-hero p {
+    font-size: 17px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    max-width: 500px;
+    line-height: 1.7;
+    margin-bottom: 40px;
+  }
+  .hero-trust {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .hero-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+  }
+  .hero-trust-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent-light);
+    flex-shrink: 0;
+  }
+
+  /* FILTER BAR */
+  .filter-bar {
+    background: var(--black);
+    padding: 0 24px 32px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .filter-bar-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 18px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1.5px solid rgba(255,255,255,0.12);
+    background: transparent;
+    color: rgba(255,255,255,0.5);
+    font-family: var(--font-body);
+  }
+  .filter-btn:hover {
+    border-color: rgba(255,255,255,0.3);
+    color: var(--white);
+  }
+  .filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--white);
+  }
+
+  /* HELPERS GRID — LIGHT */
+  .helpers-section {
+    background: var(--grey-100);
+    padding: 72px 24px;
+  }
+  .helpers-inner { max-width: 1080px; margin: 0 auto; }
+  .helpers-count {
+    font-size: 13px;
+    color: var(--grey-400);
+    margin-bottom: 32px;
+  }
+  .helpers-count span {
+    font-weight: 600;
+    color: var(--black);
+  }
+  .helpers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  /* HELPER CARD */
+  .helper-card {
+    background: var(--white);
+    border-radius: 24px;
+    padding: 28px;
+    transition: all 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    border: 1.5px solid transparent;
+  }
+  .helper-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-light);
+    box-shadow: 0 8px 32px rgba(45,106,79,0.1);
+  }
+  .helper-card-top {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  .helper-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--accent-bg);
+    border: 2px solid rgba(82,183,136,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .helper-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .helper-card-info { flex: 1; }
+  .helper-card-name {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 4px;
+  }
+  .helper-card-area {
+    font-size: 13px;
+    color: var(--grey-400);
+  }
+  .helper-card-badge {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-bg);
+    padding: 3px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  /* RATING ROW */
+  .helper-card-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--grey-200);
+  }
+  .helper-stars {
+    display: flex;
+    gap: 2px;
+  }
+  .h-star { font-size: 13px; color: var(--accent-light); }
+  .h-star-empty { color: var(--grey-200); }
+  .helper-rating-num {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--black);
+  }
+  .helper-rating-count {
+    font-size: 12px;
+    color: var(--grey-400);
+  }
+
+  /* SERVICES TAGS */
+  .helper-card-services {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .h-service-tag {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--grey-600);
+    background: var(--grey-100);
+    padding: 4px 10px;
+    border-radius: 100px;
+    border: 1px solid var(--grey-200);
+  }
+
+  /* LATEST REVIEW SNIPPET */
+  .helper-card-review {
+    font-size: 13px;
+    color: var(--grey-600);
+    line-height: 1.6;
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+
+  /* CARD FOOTER */
+  .helper-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .helper-card-bookings {
+    font-size: 12px;
+    color: var(--grey-400);
+  }
+  .helper-card-bookings span {
+    font-weight: 600;
+    color: var(--black);
+  }
+  .helper-card-link {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* TRUST SECTION */
+  .trust-section {
+    background: var(--white);
+    padding: 72px 24px;
+  }
+  .trust-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .trust-title {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 3vw, 36px);
+    font-weight: 700;
+    color: var(--black);
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+  }
+  .trust-sub {
+    font-size: 15px;
+    color: var(--grey-600);
+    margin-bottom: 48px;
+    font-style: italic;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .trust-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2px;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  .trust-card {
+    background: var(--grey-100);
+    padding: 32px 24px;
+    text-align: left;
+    transition: background 0.2s;
+  }
+  .trust-card:hover { background: var(--accent-bg); }
+  .trust-num {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  .trust-card-title {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 6px;
+  }
+  .trust-card-desc {
+    font-size: 13px;
+    color: var(--grey-600);
+    line-height: 1.6;
+  }
+
+  /* CTA */
+  .page-cta {
+    background: var(--accent);
+    padding: 72px 24px;
+    text-align: center;
+  }
+  .page-cta h2 {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 3vw, 40px);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+    line-height: 1.15;
+  }
+  .page-cta p { font-size: 16px; color: rgba(255,255,255,0.7); margin-bottom: 32px; font-weight: 300; }
+  .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-white {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 14px 32px; border-radius: 100px; font-size: 15px; font-weight: 500;
+    text-decoration: none; transition: all 0.2s; font-family: var(--font-body);
+    min-width: 160px; background: var(--white); color: var(--accent);
+    border: 1.5px solid var(--white);
+  }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  .btn-white-outline {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 14px 32px; border-radius: 100px; font-size: 15px; font-weight: 500;
+    text-decoration: none; transition: all 0.2s; font-family: var(--font-body);
+    min-width: 160px; background: transparent; color: var(--white);
+    border: 1.5px solid rgba(255,255,255,0.4);
+  }
+  .btn-white-outline:hover { border-color: var(--white); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer { background: var(--black); padding: 48px 24px 32px; }
+  .footer-inner {
+    max-width: 1080px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 48px; flex-wrap: wrap;
+    padding-bottom: 32px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 24px;
+  }
+  .footer-brand { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+  .footer-brand span { color: var(--accent-light); }
+  .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.3); max-width: 220px; line-height: 1.6; }
+  .footer-links { display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { font-size: 13px; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--white); }
+  .footer-bottom { max-width: 1080px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-copy { font-size: 12px; color: rgba(255,255,255,0.2); }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    .helpers-grid { grid-template-columns: 1fr; }
+    .trust-grid { grid-template-columns: 1fr 1fr; }
+    .footer-inner { flex-direction: column; gap: 24px; }
+    .footer-bottom { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Quelpit<span>.</span></a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="helpers.html" class="active">All helpers</a>
+      <a href="services.html">Services</a>
+      <a href="how-it-works.html">How it works</a>
+    </div>
+    <a href="https://forms.gle/yrHXEJniFoMprRH49" class="nav-cta" target="_blank">Book a helper</a>
+    <button class="hamburger" type="button" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu">
+  <a href="helpers.html">All helpers</a>
+  <a href="services.html">Services</a>
+  <a href="how-it-works.html">How it works</a>
+  <a href="https://forms.gle/yrHXEJniFoMprRH49" target="_blank">Book a helper</a>
+</div>
+
+<!-- PAGE HERO — DARK -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-label">Our helpers</div>
+    <h1>Real people.<br>Verified reviews.</h1>
+    <p>Every helper on Quelpit is background checked, reviewed by real customers, and carries a portable reputation they own forever.</p>
+    <div class="hero-trust">
+      <div class="hero-trust-item">
+        <div class="hero-trust-dot"></div>
+        Background checked
+      </div>
+      <div class="hero-trust-item">
+        <div class="hero-trust-dot"></div>
+        Verified reviews only
+      </div>
+      <div class="hero-trust-item">
+        <div class="hero-trust-dot"></div>
+        Portable profiles
+      </div>
+      <div class="hero-trust-item">
+        <div class="hero-trust-dot"></div>
+        Paid fairly — always
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HELPERS COMING SOON -->
+<section class="helpers-section">
+  <div class="helpers-inner">
+    <div style="
+      text-align: center;
+      padding: 80px 24px;
+      max-width: 560px;
+      margin: 0 auto;
+    ">
+      <div style="
+        width: 64px; height: 64px;
+        border-radius: 50%;
+        background: rgba(45,106,79,0.08);
+        border: 1.5px solid rgba(45,106,79,0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 24px;
+        font-size: 24px;
+      ">✓</div>
+      <div style="
+        font-family: 'Sora', sans-serif;
+        font-size: clamp(22px, 3vw, 30px);
+        font-weight: 700;
+        color: #0A0A0A;
+        letter-spacing: -1px;
+        margin-bottom: 12px;
+        line-height: 1.2;
+      ">Helpers being verified</div>
+      <div style="
+        font-size: 15px;
+        color: #5A5A54;
+        line-height: 1.7;
+        margin-bottom: 32px;
+      ">We are currently onboarding and background-checking our first wave of helpers in Scarborough and North York. Verified helper profiles will appear here once they are cleared and active on the platform.</div>
+      <div style="
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #F0FAF4;
+        border: 1px solid rgba(45,106,79,0.15);
+        border-radius: 100px;
+        padding: 10px 20px;
+        font-size: 13px;
+        color: #2D6A4F;
+        font-weight: 500;
+        margin-bottom: 32px;
+      ">
+        <span style="width:6px;height:6px;border-radius:50%;background:#2D6A4F;display:inline-block;"></span>
+        Launching in Scarborough &amp; North York
+      </div>
+      <br>
+      <a href="https://forms.gle/yrHXEJniFoMprRH49" target="_blank" style="
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 28px;
+        border-radius: 100px;
+        font-size: 15px;
+        font-weight: 600;
+        font-family: 'Sora', sans-serif;
+        background: #2D6A4F;
+        color: #FAFAFA;
+        text-decoration: none;
+        transition: all 0.2s;
+      ">Book a helper now →</a>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST SECTION -->
+<section class="trust-section">
+  <div class="trust-inner">
+    <div class="trust-title">Why trust our helpers?</div>
+    <div class="trust-sub">Every review is from a verified booking. No anonymous submissions. No fake ratings.</div>
+    <div class="trust-grid">
+      <div class="trust-card">
+        <div class="trust-num">01</div>
+        <div class="trust-card-title">Background checked</div>
+        <div class="trust-card-desc">Every helper completes a criminal background check before their first booking. No exceptions.</div>
+      </div>
+      <div class="trust-card">
+        <div class="trust-num">02</div>
+        <div class="trust-card-title">Verified reviews</div>
+        <div class="trust-card-desc">Reviews are collected only from confirmed bookings via verified email. No open submissions.</div>
+      </div>
+      <div class="trust-card">
+        <div class="trust-num">03</div>
+        <div class="trust-card-title">Portable profiles</div>
+        <div class="trust-card-desc">Helpers own their reviews forever. They take their profile anywhere — job applications, references, LinkedIn.</div>
+      </div>
+      <div class="trust-card">
+        <div class="trust-num">04</div>
+        <div class="trust-card-title">Fairly paid</div>
+        <div class="trust-card-desc">Every helper earns above Ontario minimum wage. Motivated, valued workers deliver better results.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="page-cta">
+  <div style="max-width:1080px; margin:0 auto;">
+    <h2>Ready to book one of our helpers?</h2>
+    <p>Tell us what you need and we will match you within 2 hours.</p>
+    <div class="cta-buttons">
+      <a href="https://forms.gle/yrHXEJniFoMprRH49" class="btn-white" target="_blank">Book a helper</a>
+      <a href="https://forms.gle/2G9TXDmeYk8jnKFo8" class="btn-white-outline" target="_blank">Become a helper</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Quelpit<span>.</span></div>
+      <div class="footer-tagline">Affordable help when you need it, real income when you want it.</div>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="helpers.html">Helpers</a>
+      <a href="services.html">Services</a>
+      <a href="how-it-works.html">How it works</a>
+      <a href="mailto:support@quelpit.ca">support@quelpit.ca</a>
+    </div>
+    <div class="footer-links">
+      <a href="https://instagram.com/justquelpit" target="_blank">Instagram</a>
+      <a href="https://tiktok.com/@justquelpit" target="_blank">TikTok</a>
+      <a href="https://facebook.com/justquelpit" target="_blank">Facebook</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Quelpit. All rights reserved. &nbsp;|&nbsp; <a href="privacy-policy.html" style="color:rgba(255,255,255,0.25);text-decoration:none;">Privacy</a> &nbsp;|&nbsp; <a href="terms.html" style="color:rgba(255,255,255,0.25);text-decoration:none;">Terms</a></div>
+  </div>
+</footer>
+
+<script>
+  // Hamburger
+  const hamburger = document.querySelector('.hamburger');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', () => {
+      const isOpen = hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('show', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('show');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  // Filter helpers
+  function filterHelpers(service, btn) {
+    // Update active button
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // Filter cards
+    const cards = document.querySelectorAll('.helper-card');
+    let count = 0;
+    cards.forEach(card => {
+      const services = card.dataset.services || '';
+      if (service === 'all' || services.includes(service)) {
+        card.style.display = 'block';
+        count++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    document.getElementById('helper-count').textContent = count;
+  }
+</script>
+
+</body>
+</html>

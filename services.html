@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quelpit — Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0A0A0A;
+    --white: #FAFAFA;
+    --grey-100: #F4F4F2;
+    --grey-200: #E8E8E4;
+    --grey-400: #9E9E96;
+    --grey-600: #5A5A54;
+    --accent: #2D6A4F;
+    --accent-light: #52B788;
+    --accent-bg: #F0FAF4;
+    --warm: #F7F3EE;
+    --font-display: 'Sora', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--white);
+    color: var(--black);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    background: transparent;
+    backdrop-filter: none;
+    border-bottom: 1px solid transparent;
+    transition: background 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
+  }
+  nav.scrolled,
+  nav.menu-open {
+    background: var(--warm);
+    backdrop-filter: blur(12px);
+    border-bottom-color: var(--grey-200);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--black);
+    letter-spacing: -0.5px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 24px;
+    margin-left: auto;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 32px;
+  }
+  .nav-links a,
+  .mobile-menu a:not(.btn) {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--grey-600);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover,
+  .nav-links a.active,
+  .mobile-menu a:hover,
+  .mobile-menu a.active { color: var(--black); }
+  .nav-cta-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+    max-width: 0;
+    overflow: hidden;
+    transition: opacity 0.25s ease, transform 0.25s ease, max-width 0.25s ease;
+  }
+  .nav-cta-group.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    max-width: 440px;
+  }
+  .nav-cta-group .btn {
+    padding: 11px 24px;
+    min-width: 0;
+    font-size: 14px;
+  }
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 26px;
+    height: 22px;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+  .hamburger span {
+    display: block;
+    width: 26px;
+    height: 2px;
+    background: var(--black);
+    border-radius: 2px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mobile-menu {
+    display: none;
+  }
+  .nav-cta {
+    background: var(--warm) !important;
+    color: var(--black) !important;
+    padding: 11px 24px !important;
+    border-radius: 100px;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s !important;
+    border: 1.5px solid var(--black) !important;
+  }
+  .nav-cta:hover {
+    background: var(--accent-light) !important;
+    border-color: var(--accent-light) !important;
+    color: var(--black) !important;
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links,
+    .nav-cta-group { display: none; }
+    .hamburger { display: flex; }
+    .mobile-menu {
+      position: fixed;
+      top: 62px;
+      left: 0;
+      right: 0;
+      z-index: 99;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding: 20px 24px 24px;
+      background: var(--warm);
+      border-bottom: 1px solid var(--grey-200);
+      transform: translateY(-120%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .mobile-menu.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .mobile-menu .mobile-cta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-top: 4px;
+    }
+    .mobile-menu .btn {
+      width: 100%;
+      min-width: 0;
+    }
+  }
+
+  /* BUTTONS */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 36px;
+    border-radius: 100px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-family: var(--font-body);
+    min-width: 180px;
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--warm);
+    color: var(--black);
+    border-color: var(--black);
+  }
+  .btn-primary:hover {
+    background: var(--accent-light);
+    border-color: var(--accent-light);
+    color: var(--black);
+    transform: translateY(-1px);
+  }
+  .btn-secondary {
+    background: var(--black);
+    color: var(--white);
+    border-color: var(--black);
+  }
+  .btn-secondary:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--white);
+    transform: translateY(-1px);
+  }
+
+  /* PAGE HERO */
+  .page-hero {
+    padding: 160px 24px 80px;
+    background: var(--warm);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(82,183,136,0.1) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    pointer-events: none;
+  }
+  .page-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .page-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 700;
+    letter-spacing: -2px;
+    color: var(--black);
+    line-height: 1.1;
+    margin-bottom: 20px;
+    animation: fadeUp 0.6s ease 0.1s both;
+  }
+  .page-hero p {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--grey-600);
+    max-width: 500px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+    animation: fadeUp 0.6s ease 0.2s both;
+  }
+  .page-hero-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s ease 0.3s both;
+  }
+
+  /* SECTIONS */
+  section { padding: 80px 24px; }
+  .container { max-width: 1080px; margin: 0 auto; }
+  .section-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(26px, 3.5vw, 42px);
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    color: var(--black);
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+  .section-sub {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--grey-600);
+    max-width: 520px;
+    line-height: 1.7;
+  }
+  .section-note {
+    font-size: 13px;
+    color: var(--grey-400);
+    font-style: italic;
+    margin-top: 8px;
+  }
+
+  /* SERVICES GRID */
+  .services { background: var(--grey-100); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2px;
+    margin-top: 56px;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  .service-card {
+    background: var(--white);
+    padding: 36px 32px;
+    transition: background 0.2s;
+  }
+  .service-card:hover { background: var(--accent-bg); }
+  .service-number {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent-light);
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  .service-name {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 10px;
+  }
+  .service-desc {
+    font-size: 14px;
+    color: var(--grey-600);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .service-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: 1px solid var(--grey-200);
+  }
+  .service-price {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .service-min {
+    font-size: 12px;
+    color: var(--grey-400);
+  }
+
+  /* PRICING TABLE */
+  .pricing { background: var(--white); }
+  .pricing-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 48px;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .pricing-table th {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 16px 24px;
+    text-align: left;
+    letter-spacing: 0.5px;
+  }
+  .pricing-table td {
+    padding: 16px 24px;
+    font-size: 14px;
+    color: var(--grey-600);
+    border-bottom: 1px solid var(--grey-200);
+  }
+  .pricing-table tr:last-child td { border-bottom: none; }
+  .pricing-table tr:nth-child(even) td { background: var(--grey-100); }
+  .pricing-table tr:hover td { background: var(--accent-bg); }
+  .pricing-table .price {
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 15px;
+  }
+  .pricing-table .service-col {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--black);
+    font-size: 15px;
+  }
+
+  /* COMPLETE MOVE */
+  .complete-move { background: var(--black); }
+  .complete-move .section-label { color: var(--accent-light); }
+  .complete-move .section-title { color: var(--white); }
+  .complete-move .section-sub { color: rgba(255,255,255,0.5); }
+  .move-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-top: 56px;
+    align-items: start;
+  }
+  .move-steps { display: flex; flex-direction: column; gap: 0; }
+  .move-step {
+    display: flex;
+    gap: 20px;
+    padding: 24px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .move-step:last-child { border-bottom: none; }
+  .move-step-num {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent-light);
+    min-width: 28px;
+    padding-top: 2px;
+  }
+  .move-step-title {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .move-step-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.6;
+  }
+  .move-card {
+    background: rgba(255,255,255,0.05);
+    border-radius: 20px;
+    padding: 36px 32px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .move-card-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .move-card-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+  .move-card-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+    margin-bottom: 24px;
+  }
+  .move-card-feature {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 12px;
+  }
+  .move-card-feature::before {
+    content: '✓';
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: rgba(82,183,136,0.15);
+    color: var(--accent-light);
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* CTA BANNER */
+  .cta-banner {
+    background: var(--accent);
+    padding: 80px 24px;
+    text-align: center;
+  }
+  .cta-banner h2 {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 3.5vw, 42px);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+  .cta-banner p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.75);
+    font-weight: 300;
+    margin-bottom: 36px;
+  }
+  .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-white {
+    background: var(--white);
+    color: var(--accent);
+    border-color: var(--white);
+    min-width: 180px;
+    padding: 15px 36px;
+    border-radius: 100px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-family: var(--font-body);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--white);
+  }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  .btn-white-outline {
+    background: transparent;
+    color: var(--white);
+    border: 1.5px solid rgba(255,255,255,0.4);
+    min-width: 180px;
+    padding: 15px 36px;
+    border-radius: 100px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-family: var(--font-body);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn-white-outline:hover { border-color: var(--white); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer { background: var(--black); padding: 60px 24px 40px; }
+  .footer-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 48px;
+    flex-wrap: wrap;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 32px;
+  }
+  .footer-brand {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+  .footer-brand span { color: var(--accent-light); }
+  .footer-tagline { font-size: 14px; color: rgba(255,255,255,0.35); max-width: 240px; line-height: 1.6; }
+  .footer-links { display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { font-size: 14px; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--white); }
+  .footer-bottom {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-copy { font-size: 13px; color: rgba(255,255,255,0.25); }
+  .footer-social { display: flex; gap: 20px; }
+  .footer-social a { font-size: 13px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
+  .footer-social a:hover { color: var(--white); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .move-grid { grid-template-columns: 1fr; }
+    .footer-inner { flex-direction: column; gap: 32px; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+    .btn { min-width: 140px; padding: 14px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Quelpit<span>.</span></a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="helpers.html">Helpers</a>
+      <a href="services.html" class="active">Services</a>
+      <a href="how-it-works.html">How it works</a>
+    </div>
+    <div class="nav-cta-group">
+      <a href="index.html#book" class="btn btn-primary">Book a helper</a>
+      <a href="index.html#earn" class="btn btn-secondary">Become a helper</a>
+    </div>
+    <button class="hamburger" type="button" aria-label="Open menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="helpers.html">Helpers</a>
+  <a href="services.html" class="active">Services</a>
+  <a href="how-it-works.html">How it works</a>
+  <div class="mobile-cta">
+    <a href="index.html#book" class="btn btn-primary">Book a helper</a>
+    <a href="index.html#earn" class="btn btn-secondary">Become a helper</a>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-label">What we offer</div>
+  <h1>Help for every task.<br>No markups, no surprises.</h1>
+  <p>From moving to cleaning, assembly to snow removal — vetted helpers ready for whatever you need. No agencies, no markups, no surprises.</p>
+  <div class="page-hero-buttons">
+    <a href="index.html#book" class="btn btn-primary">Book a helper</a>
+    <a href="index.html#earn" class="btn btn-secondary">Become a helper</a>
+  </div>
+</section>
+
+<!-- SERVICES GRID -->
+<section class="services">
+  <div class="container">
+    <div class="section-label">All services</div>
+    <h2 class="section-title">Help you can actually trust.<br>At a price that makes sense.</h2>
+    <p class="section-sub">Work that gets the job done right, at a fraction of what agencies and specialists charge. Every helper is background checked, reviewed, and ready.</p>
+    <p class="section-note">Quelpit provides helpers only. Customers supply their own equipment and materials where needed.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-number">01</div>
+        <div class="service-name">Moving & Heavy Labour</div>
+        <div class="service-desc">Furniture, boxes, appliances — loaded, moved, and placed where you need them. Real results without the agency price tag.</div>
+        <div class="service-details">
+          <span class="service-price">$28/hr per helper</span>
+          <span class="service-min">2hr minimum</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-number">02</div>
+        <div class="service-name">Deep Cleaning</div>
+        <div class="service-desc">Full top-to-bottom clean of your home or apartment. Move-out ready, landlord inspection ready, or just a fresh start.</div>
+        <div class="service-details">
+          <span class="service-price">$27/hr per helper</span>
+          <span class="service-min">2hr minimum</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-number">03</div>
+        <div class="service-name">Standard Cleaning</div>
+        <div class="service-desc">Regular maintenance clean to keep your home looking its best. Reliable, affordable, and consistent every time.</div>
+        <div class="service-details">
+          <span class="service-price">$25/hr per helper</span>
+          <span class="service-min">2hr minimum</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-number">04</div>
+        <div class="service-name">Furniture Assembly</div>
+        <div class="service-desc">Flatpack and IKEA furniture built properly the first time. No stress, no missing steps, no wasted afternoon on the floor.</div>
+        <div class="service-details">
+          <span class="service-price">$26/hr per helper</span>
+          <span class="service-min">2hr minimum</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-number">05</div>
+        <div class="service-name">Snow Removal</div>
+        <div class="service-desc">Driveway and walkway cleared before you need to leave. Canadian winters handled reliably and affordably.</div>
+        <div class="service-details">
+          <span class="service-price">$26/hr per helper</span>
+          <span class="service-min">2hr minimum</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-number">06</div>
+        <div class="service-name">General Help & Errands</div>
+        <div class="service-desc">Packing, general labour, odd jobs around the home. If it needs doing, we match you with someone ready to get it done.</div>
+        <div class="service-details">
+          <span class="service-price">$26/hr per helper</span>
+          <span class="service-min">2hr minimum</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-number">07</div>
+        <div class="service-name">Pre & Post Move Clean</div>
+        <div class="service-desc">Move out clean for your deposit, or a move-in clean for a fresh start. Thorough, affordable, and done on your schedule.</div>
+        <div class="service-details">
+          <span class="service-price">$27/hr per helper</span>
+          <span class="service-min">2hr minimum</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-number">08</div>
+        <div class="service-name">Decluttering & Sorting</div>
+        <div class="service-desc">Helpers assist with sorting and organising for donations or disposal. You direct, they do the heavy lifting.</div>
+        <div class="service-details">
+          <span class="service-price">$26/hr per helper</span>
+          <span class="service-min">2hr minimum</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-number">09</div>
+        <div class="service-name">Complete Move Package</div>
+        <div class="service-desc">Packing, moving, cleaning, unpacking — all in one booking. One price, zero coordination, everything handled A to Z.</div>
+        <div class="service-details">
+          <span class="service-price">Custom quote</span>
+          <span class="service-min">Contact us</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING TABLE -->
+<section class="pricing">
+  <div class="container">
+    <div class="section-label">Pricing overview</div>
+    <h2 class="section-title">Clear pricing.<br>No hidden fees.</h2>
+    <p class="section-sub">Every service priced honestly. What you see is what you pay — no surprise charges, no minimum spend traps.</p>
+    <table class="pricing-table">
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>Rate per helper</th>
+          <th>Minimum booking</th>
+          <th>Minimum cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="service-col">Moving & Heavy Labour</td>
+          <td class="price">$28/hr</td>
+          <td>2 hours</td>
+          <td class="price">$56</td>
+        </tr>
+        <tr>
+          <td class="service-col">Deep Cleaning</td>
+          <td class="price">$27/hr</td>
+          <td>2 hours</td>
+          <td class="price">$54</td>
+        </tr>
+        <tr>
+          <td class="service-col">Standard Cleaning</td>
+          <td class="price">$25/hr</td>
+          <td>2 hours</td>
+          <td class="price">$50</td>
+        </tr>
+        <tr>
+          <td class="service-col">Furniture Assembly</td>
+          <td class="price">$26/hr</td>
+          <td>2 hours</td>
+          <td class="price">$52</td>
+        </tr>
+        <tr>
+          <td class="service-col">Snow Removal</td>
+          <td class="price">$26/hr</td>
+          <td>2 hour</td>
+          <td class="price">$52</td>
+        </tr>
+        <tr>
+          <td class="service-col">General Help & Errands</td>
+          <td class="price">$26/hr</td>
+          <td>2 hours</td>
+          <td class="price">$52</td>
+        </tr>
+        <tr>
+          <td class="service-col">Pre & Post Move Clean</td>
+          <td class="price">$27/hr</td>
+          <td>2 hours</td>
+          <td class="price">$54</td>
+        </tr>
+        <tr>
+          <td class="service-col">Decluttering & Sorting</td>
+          <td class="price">$26/hr</td>
+          <td>2 hours</td>
+          <td class="price">$52</td>
+        </tr>
+        <tr>
+          <td class="service-col">Complete Move Package</td>
+          <td class="price">Custom</td>
+          <td>Full day</td>
+          <td class="price">Contact us</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- COMPLETE MOVE -->
+<section class="complete-move">
+  <div class="container">
+    <div class="section-label">Our flagship service</div>
+    <h2 class="section-title">Complete Move Package.</h2>
+    <p class="section-sub">Every part of your move handled in one booking. Packing, moving, cleaning, unpacking — A to Z, zero coordination on your end.</p>
+    <div class="move-grid">
+      <div class="move-steps">
+        <div class="move-step">
+          <div class="move-step-num">01</div>
+          <div>
+            <div class="move-step-title">Pre-move packing</div>
+            <div class="move-step-desc">Helpers arrive the day before or morning of your move. Everything packed, labelled, and ready to go.</div>
+          </div>
+        </div>
+        <div class="move-step">
+          <div class="move-step-num">02</div>
+          <div>
+            <div class="move-step-title">Loading & truck</div>
+            <div class="move-step-desc">Driver helper picks up your U-Haul, loads everything at your current home. Fresh helpers arrive ready to work.</div>
+          </div>
+        </div>
+        <div class="move-step">
+          <div class="move-step-num">03</div>
+          <div>
+            <div class="move-step-title">Move & unload</div>
+            <div class="move-step-desc">Truck driven to your new home. Fresh unloading team arrives — everything carried in and placed.</div>
+          </div>
+        </div>
+        <div class="move-step">
+          <div class="move-step-num">04</div>
+          <div>
+            <div class="move-step-title">Old place deep clean</div>
+            <div class="move-step-desc">Cleaning team arrives at your old address. Full deep clean — spotless for your landlord inspection.</div>
+          </div>
+        </div>
+        <div class="move-step">
+          <div class="move-step-num">05</div>
+          <div>
+            <div class="move-step-title">Unpacking & settling in</div>
+            <div class="move-step-desc">Helpers unpack boxes and arrange furniture at your new home. You arrive to a place that's already set up.</div>
+          </div>
+        </div>
+      </div>
+      <div class="move-card">
+        <div class="move-card-title">Everything included.</div>
+        <div class="move-card-sub">One booking. One price. Zero coordination on your end.</div>
+        <div class="move-card-divider"></div>
+        <div class="move-card-feature">Pre-move packing assistance</div>
+        <div class="move-card-feature">U-Haul arranged and optimized</div>
+        <div class="move-card-feature">Loading at origin address</div>
+        <div class="move-card-feature">Truck driven to destination</div>
+        <div class="move-card-feature">Fresh helpers for unloading</div>
+        <div class="move-card-feature">Old place deep cleaned</div>
+        <div class="move-card-feature">Unpacking at new home</div>
+        <div class="move-card-feature">Truck returned after move</div>
+        <br>
+        <a href="https://forms.gle/3oJVq4TzAdUeT4yA6" class="btn-white" style="display:block; text-align:center;" target="_blank">Get a quote →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-banner">
+  <div class="container">
+    <h2>Ready to book?</h2>
+    <p>Tell us what you need and we will match you with a vetted helper within 2 hours.</p>
+    <div class="cta-buttons">
+      <a href="https://forms.gle/3oJVq4TzAdUeT4yA6" class="btn-white" target="_blank">Book a helper</a>
+      <a href="https://forms.gle/2G9TXDmeYk8jnKFo8" class="btn-white-outline" target="_blank">Become a helper</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Quelpit<span>.</span></div>
+      <div class="footer-tagline">Affordable help when you need it, real income when you want it.</div>
+    </div>
+    <div class="footer-links">
+      <a href="helpers.html">Helpers</a>
+      <a href="services.html">Services</a>
+      <a href="how-it-works.html">How it works</a>
+      <a href="mailto:support@quelpit.ca">support@quelpit.ca</a>
+      <a href="https://quelpit.ca">quelpit.ca</a>
+    </div>
+    <div class="footer-links">
+      <a href="https://instagram.com/justquelpit" target="_blank">Instagram</a>
+      <a href="https://tiktok.com/@justquelpit" target="_blank">TikTok</a>
+      <a href="https://facebook.com/justquelpit" target="_blank">Facebook</a>
+      <a href="https://linkedin.com/company/justquelpit" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Quelpit. All rights reserved. &nbsp;|&nbsp; <a href="privacy-policy.html" style="color:rgba(255,255,255,0.25);text-decoration:none;">Privacy</a> &nbsp;|&nbsp; <a href="terms.html" style="color:rgba(255,255,255,0.25);text-decoration:none;">Terms</a></div>
+    <div class="footer-social">
+      <a href="mailto:support@quelpit.ca">Contact us</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.querySelector('nav');
+  const navCtas = document.querySelector('.nav-cta-group');
+  const hamburger = document.querySelector('.hamburger');
+  const mobileMenu = document.querySelector('.mobile-menu');
+
+  function updateHeaderState() {
+    const isScrolled = window.scrollY > 100;
+    nav.classList.toggle('scrolled', isScrolled);
+    if (navCtas) navCtas.classList.toggle('show', isScrolled);
+  }
+
+  updateHeaderState();
+  window.addEventListener('scroll', updateHeaderState);
+
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', () => {
+      const isOpen = hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('show', isOpen);
+      nav.classList.toggle('menu-open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    mobileMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('show');
+        nav.classList.remove('menu-open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+</script>
+
+</body>
+</html>

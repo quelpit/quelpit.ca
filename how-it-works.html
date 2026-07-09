@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quelpit — How It Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0A0A0A;
+    --white: #FAFAFA;
+    --grey-100: #F4F4F2;
+    --grey-200: #E8E8E4;
+    --grey-400: #9E9E96;
+    --grey-600: #5A5A54;
+    --accent: #2D6A4F;
+    --accent-light: #52B788;
+    --accent-bg: #F0FAF4;
+    --warm: #F7F3EE;
+    --font-display: 'Sora', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--white);
+    color: var(--black);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    background: transparent;
+    backdrop-filter: none;
+    border-bottom: 1px solid transparent;
+    transition: background 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
+  }
+  nav.scrolled,
+  nav.menu-open {
+    background: var(--warm);
+    backdrop-filter: blur(12px);
+    border-bottom-color: var(--grey-200);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--black);
+    letter-spacing: -0.5px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 24px;
+    margin-left: auto;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 32px;
+  }
+  .nav-links a,
+  .mobile-menu a:not(.btn) {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--grey-600);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover,
+  .nav-links a.active,
+  .mobile-menu a:hover,
+  .mobile-menu a.active { color: var(--black); }
+  .nav-cta-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+    max-width: 0;
+    overflow: hidden;
+    transition: opacity 0.25s ease, transform 0.25s ease, max-width 0.25s ease;
+  }
+  .nav-cta-group.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    max-width: 440px;
+  }
+  .nav-cta-group .btn {
+    padding: 11px 24px;
+    min-width: 0;
+    font-size: 14px;
+  }
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 26px;
+    height: 22px;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+  .hamburger span {
+    display: block;
+    width: 26px;
+    height: 2px;
+    background: var(--black);
+    border-radius: 2px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mobile-menu {
+    display: none;
+  }
+  .nav-cta {
+    background: var(--warm) !important;
+    color: var(--black) !important;
+    padding: 11px 24px !important;
+    border-radius: 100px;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s !important;
+    border: 1.5px solid var(--black) !important;
+  }
+  .nav-cta:hover {
+    background: var(--accent-light) !important;
+    border-color: var(--accent-light) !important;
+    color: var(--black) !important;
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links,
+    .nav-cta-group { display: none; }
+    .hamburger { display: flex; }
+    .mobile-menu {
+      position: fixed;
+      top: 62px;
+      left: 0;
+      right: 0;
+      z-index: 99;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding: 20px 24px 24px;
+      background: var(--warm);
+      border-bottom: 1px solid var(--grey-200);
+      transform: translateY(-120%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .mobile-menu.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .mobile-menu .mobile-cta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-top: 4px;
+    }
+    .mobile-menu .btn {
+      width: 100%;
+      min-width: 0;
+    }
+  }
+
+  /* BUTTONS */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 36px;
+    border-radius: 100px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-family: var(--font-body);
+    min-width: 180px;
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--warm);
+    color: var(--black);
+    border-color: var(--black);
+  }
+  .btn-primary:hover {
+    background: var(--accent-light);
+    border-color: var(--accent-light);
+    color: var(--black);
+    transform: translateY(-1px);
+  }
+  .btn-secondary {
+    background: var(--black);
+    color: var(--white);
+    border-color: var(--black);
+  }
+  .btn-secondary:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--white);
+    transform: translateY(-1px);
+  }
+  .btn-white {
+    background: var(--white);
+    color: var(--accent);
+    border: 1.5px solid var(--white);
+    min-width: 180px;
+    padding: 15px 36px;
+    border-radius: 100px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-family: var(--font-body);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  .btn-white-outline {
+    background: transparent;
+    color: var(--white);
+    border: 1.5px solid rgba(255,255,255,0.4);
+    min-width: 180px;
+    padding: 15px 36px;
+    border-radius: 100px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-family: var(--font-body);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn-white-outline:hover { border-color: var(--white); transform: translateY(-2px); }
+
+  /* PAGE HERO */
+  .page-hero {
+    padding: 160px 24px 80px;
+    background: var(--warm);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(82,183,136,0.1) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    pointer-events: none;
+  }
+  .page-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .page-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 700;
+    letter-spacing: -2px;
+    color: var(--black);
+    line-height: 1.1;
+    margin-bottom: 20px;
+    animation: fadeUp 0.6s ease 0.1s both;
+  }
+  .page-hero p {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--grey-600);
+    max-width: 500px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+    animation: fadeUp 0.6s ease 0.2s both;
+  }
+  .page-hero-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s ease 0.3s both;
+  }
+
+  /* SECTIONS */
+  section { padding: 80px 24px; }
+  .container { max-width: 1080px; margin: 0 auto; }
+  .section-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(26px, 3.5vw, 42px);
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    color: var(--black);
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+  .section-sub {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--grey-600);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 56px;
+  }
+
+  /* CUSTOMER STEPS */
+  .customer-steps { background: var(--grey-100); }
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  .step-card {
+    background: var(--white);
+    padding: 40px 32px;
+    transition: background 0.2s;
+  }
+  .step-card:hover { background: var(--accent-bg); }
+  .step-num {
+    font-family: var(--font-display);
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--grey-200);
+    line-height: 1;
+    margin-bottom: 20px;
+    letter-spacing: -2px;
+  }
+  .step-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 12px;
+  }
+  .step-desc {
+    font-size: 14px;
+    color: var(--grey-600);
+    line-height: 1.7;
+  }
+
+  /* TRUST SECTION */
+  .trust { background: var(--white); }
+  .trust-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  .trust-card {
+    background: var(--grey-100);
+    padding: 36px 32px;
+    transition: background 0.2s;
+  }
+  .trust-card:hover { background: var(--accent-bg); }
+  .trust-num {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  .trust-title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 10px;
+  }
+  .trust-desc {
+    font-size: 14px;
+    color: var(--grey-600);
+    line-height: 1.7;
+  }
+
+  /* HELPER STEPS */
+  .helper-steps { background: var(--black); }
+  .helper-steps .section-label { color: var(--accent-light); }
+  .helper-steps .section-title { color: var(--white); }
+  .helper-steps .section-sub { color: rgba(255,255,255,0.5); }
+  .helper-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  .helper-card {
+    background: rgba(255,255,255,0.04);
+    padding: 40px 32px;
+    transition: background 0.2s;
+  }
+  .helper-card:hover { background: rgba(82,183,136,0.1); }
+  .helper-num {
+    font-family: var(--font-display);
+    font-size: 56px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.08);
+    line-height: 1;
+    margin-bottom: 20px;
+    letter-spacing: -2px;
+  }
+  .helper-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+  .helper-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.7;
+  }
+
+  /* POLICIES */
+  .policies { background: var(--accent-bg); }
+  .policies-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+  .policy-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 36px 32px;
+  }
+  .policy-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--grey-200);
+  }
+  .policy-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+  .policy-item:last-child { margin-bottom: 0; }
+  .policy-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+  .policy-text {
+    font-size: 14px;
+    color: var(--grey-600);
+    line-height: 1.6;
+  }
+  .policy-text strong {
+    color: var(--black);
+    font-weight: 600;
+  }
+
+  /* FAQ */
+  .faq { background: var(--white); }
+  .faq-list { margin-top: 48px; }
+  .faq-item {
+    border-bottom: 1px solid var(--grey-200);
+    padding: 24px 0;
+  }
+  .faq-item:first-child { border-top: 1px solid var(--grey-200); }
+  .faq-q {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  .faq-a {
+    font-size: 15px;
+    color: var(--grey-600);
+    line-height: 1.7;
+    max-width: 680px;
+  }
+
+  /* CTA BANNER */
+  .cta-banner {
+    background: var(--accent);
+    padding: 80px 24px;
+    text-align: center;
+  }
+  .cta-banner h2 {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 3.5vw, 42px);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+  .cta-banner p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.75);
+    font-weight: 300;
+    margin-bottom: 36px;
+  }
+  .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  /* FOOTER */
+  footer { background: var(--black); padding: 60px 24px 40px; }
+  .footer-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 48px;
+    flex-wrap: wrap;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 32px;
+  }
+  .footer-brand {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+  .footer-brand span { color: var(--accent-light); }
+  .footer-tagline { font-size: 14px; color: rgba(255,255,255,0.35); max-width: 240px; line-height: 1.6; }
+  .footer-links { display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { font-size: 14px; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--white); }
+  .footer-bottom {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-copy { font-size: 13px; color: rgba(255,255,255,0.25); }
+  .footer-social { display: flex; gap: 20px; }
+  .footer-social a { font-size: 13px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
+  .footer-social a:hover { color: var(--white); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .steps-grid { grid-template-columns: 1fr; }
+    .trust-grid { grid-template-columns: 1fr; }
+    .helper-grid { grid-template-columns: 1fr; }
+    .policies-grid { grid-template-columns: 1fr; }
+    .footer-inner { flex-direction: column; gap: 32px; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+    .btn { min-width: 140px; padding: 14px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Quelpit<span>.</span></a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="helpers.html">Helpers</a>
+      <a href="services.html">Services</a>
+      <a href="how-it-works.html" class="active">How it works</a>
+    </div>
+    <div class="nav-cta-group">
+      <a href="index.html#book" class="btn btn-primary">Book a helper</a>
+      <a href="index.html#earn" class="btn btn-secondary">Become a helper</a>
+    </div>
+    <button class="hamburger" type="button" aria-label="Open menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu">
+  <a href="helpers.html">Helpers</a>
+  <a href="services.html">Services</a>
+  <a href="how-it-works.html" class="active">How it works</a>
+  <div class="mobile-cta">
+    <a href="index.html#book" class="btn btn-primary">Book a helper</a>
+    <a href="index.html#earn" class="btn btn-secondary">Become a helper</a>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-label">Simple by design</div>
+  <h1>How Quelpit works.</h1>
+  <p>From booking to done — everything is straightforward. No phone calls, no waiting for quotes, no surprises.</p>
+  <div class="page-hero-buttons">
+    <a href="index.html#book" class="btn btn-primary">Book a helper</a>
+    <a href="index.html#earn" class="btn btn-secondary">Become a helper</a>
+  </div>
+</section>
+
+<!-- CUSTOMER STEPS -->
+<section class="customer-steps">
+  <div class="container">
+    <div class="section-label">For customers</div>
+    <h2 class="section-title">Three steps.<br>That's it.</h2>
+    <p class="section-sub">Getting help has never been simpler. Pick your service, tell us when, and we handle everything else.</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-title">Book your helper</div>
+        <div class="step-desc">Fill out our booking form — choose your service, date, time, and how many helpers you need. Pay securely upfront. Booking is simple and straightforward.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-title">We match you</div>
+        <div class="step-desc">Within 2 hours we confirm your booking and match you with a background-checked, reviewed helper close to your location. You see their name, photo, and rating before they arrive.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-title">Done. Rate them.</div>
+        <div class="step-desc">Job complete. Leave an honest review — it goes directly onto your helper's portable profile. They own it forever. Your feedback helps build a trustworthy community.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST SECTION -->
+<section class="trust">
+  <div class="container">
+    <div class="section-label">How we protect you</div>
+    <h2 class="section-title">Every booking is<br>backed by trust.</h2>
+    <p class="section-sub">We have built safety and accountability into every part of the platform so you never have to worry.</p>
+    <div class="trust-grid">
+      <div class="trust-card">
+        <div class="trust-num">01</div>
+        <div class="trust-title">Background checked helpers</div>
+        <div class="trust-desc">Every helper on Quelpit completes a criminal background check before their first booking. No exceptions, no shortcuts. You always know who is coming.</div>
+      </div>
+      <div class="trust-card">
+        <div class="trust-num">02</div>
+        <div class="trust-title">Verified reviews you can trust</div>
+        <div class="trust-desc">Every review is from a verified real booking. You see the helper's full rating history before you confirm. No fake reviews, no hidden feedback.</div>
+      </div>
+      <div class="trust-card">
+        <div class="trust-num">03</div>
+        <div class="trust-title">Standby helpers always ready</div>
+        <div class="trust-desc">We maintain a pool of standby helpers in every area. If your helper has an emergency we have someone ready to step in. Your booking is always protected.</div>
+      </div>
+      <div class="trust-card">
+        <div class="trust-num">04</div>
+        <div class="trust-title">Booking protection — coming soon</div>
+        <div class="trust-desc">We are building optional booking insurance to give you extra peace of mind on every job. Available soon — we will notify all customers when it launches.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HELPER STEPS -->
+<section class="helper-steps">
+  <div class="container">
+    <div class="section-label">For helpers</div>
+    <h2 class="section-title">How to start earning.</h2>
+    <p class="section-sub">Apply, get verified, and start accepting bookings close to where you are. Paid every Friday.</p>
+    <div class="helper-grid">
+      <div class="helper-card">
+        <div class="helper-num">01</div>
+        <div class="helper-title">Apply</div>
+        <div class="helper-desc">Fill out our helper application form. Tell us your availability, what services you are comfortable with, and your area. Takes less than 2 minutes.</div>
+      </div>
+      <div class="helper-card">
+        <div class="helper-num">02</div>
+        <div class="helper-title">Get verified</div>
+        <div class="helper-desc">We review your application within 24 hours. A background check is required — the cost is fully reimbursed after your first 5 completed bookings. Once cleared you are onboarded and ready to accept bookings.</div>
+      </div>
+      <div class="helper-card">
+        <div class="helper-num">03</div>
+        <div class="helper-title">Accept bookings</div>
+        <div class="helper-desc">Jobs are matched to your area and availability. Accept the ones that suit you. Complete the booking, deliver good work, collect your review. Paid every Friday via e-transfer.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POLICIES -->
+<section class="policies">
+  <div class="container">
+    <div class="section-label">Our policies</div>
+    <h2 class="section-title">Clear rules.<br>Fair for everyone.</h2>
+    <p class="section-sub">We believe in being transparent about how everything works — for customers and helpers alike.</p>
+    <div class="policies-grid">
+      <div class="policy-card">
+        <div class="policy-title">Cancellation policy — customers</div>
+        <div class="policy-item">
+          <div class="policy-dot"></div>
+          <div class="policy-text"><strong>24+ hours before</strong> — Full refund excluding processing fee to your original payment method.</div>
+        </div>
+        <div class="policy-item">
+          <div class="policy-dot"></div>
+          <div class="policy-text"><strong>6–24 hours before</strong> — 75% refund excluding processing fee to your original payment method, or reschedule with a 5% rescheduling fee applied to your booking subtotal.</div>
+        </div>
+        <div class="policy-item">
+          <div class="policy-dot"></div>
+          <div class="policy-text"><strong>Under 6 hours</strong> — 50% refund excluding processing fee to your original payment method, or reschedule with a 10% rescheduling fee applied to your booking subtotal.</div>
+        </div>
+        <div class="policy-item">
+          <div class="policy-dot"></div>
+          <div class="policy-text"><strong>Helper no-show</strong> — Full refund excluding processing fee to your original payment method, or one free reschedule. The processing fee is a third-party payment processing cost already incurred and is non-refundable in all cases.</div>
+        </div>
+        <div class="policy-item">
+          <div class="policy-dot"></div>
+          <div class="policy-text"><strong>Processing fees</strong> — Non-refundable in all cases. The processing fee represents a third-party cost already incurred at the time of payment. All refunds are calculated on your booking subtotal only.</div>
+        </div>
+        <div class="policy-item">
+          <div class="policy-dot"></div>
+          <div class="policy-text"><strong>Refund timeline</strong> — All refunds processed within 15 days of your cancellation email being received.</div>
+        </div>
+        <div class="policy-item">
+          <div class="policy-dot"></div>
+          <div class="policy-text"><strong>To cancel</strong> — Email support@quelpit.ca. Cancellation time is determined by when your email is received by Quelpit.</div>
+        </div>
+      </div>
+      <div class="policy-card">
+        <div class="policy-title">Cancellation policy — helpers</div>
+        <div class="policy-item">
+          <div class="policy-dot"></div>
+          <div class="policy-text"><strong>24+ hours before</strong> — No penalty. Plans change, and that's fine.</div>
+        </div>
+        <div class="policy-item">
+          <div class="policy-dot"></div>
+          <div class="policy-text"><strong>6–24 hours before</strong> — Up to 3 per calendar month at no cost. Beyond that, you'll be deprioritized in job matching for 30 days, meaning helpers in good standing are matched first.</div>
+        </div>
+        <div class="policy-item">
+          <div class="policy-dot"></div>
+          <div class="policy-text"><strong>Under 6 hours</strong> — Up to 1 per calendar month at no cost. Beyond that, you'll be deprioritized in job matching for 30 days and receive a written warning on file.</div>
+        </div>
+        <div class="policy-item">
+          <div class="policy-dot"></div>
+          <div class="policy-text"><strong>No show</strong> — Immediate suspension pending review, plus a written warning. Three no-shows within any rolling 90-day period results in a 1-month suspension from the Platform. Upon return, you'll start deprioritized in job matching — completing bookings reliably during this period restores your standing over time.</div>
+        </div>
+        <div class="policy-item">
+          <div class="policy-dot"></div>
+          <div class="policy-text"><strong>Why this matters</strong> — When you cancel a booking, the customer is notified immediately and offered a reschedule or refund. Repeated cancellations affect customer trust and your standing on the platform. Your reliability is your reputation — it shows in your reviews and your access to bookings.</div>
+        </div>
+      </div>
+      <div class="policy-card">
+        <div class="policy-title">Payment policy</div>
+        <div class="policy-item">
+          <div class="policy-dot"></div>
+          <div class="policy-text"><strong>Customers</strong> — Full payment collected upfront at booking. Booking confirmed only after payment received.</div>
+        </div>
+        <div class="policy-item">
+          <div class="policy-dot"></div>
+          <div class="policy-text"><strong>Helpers</strong> — Paid every Friday for the previous week's completed bookings.</div>
+        </div>
+        <div class="policy-item">
+          <div class="policy-dot"></div>
+          <div class="policy-text"><strong>Tips</strong> — 100% of any tip goes directly to the helper. Always.</div>
+        </div>
+        <div class="policy-item">
+          <div class="policy-dot"></div>
+          <div class="policy-text"><strong>Minimum</strong> — 2 hour minimum on all bookings</div>
+        </div>
+      </div>
+      <div class="policy-card">
+        <div class="policy-title">Dispute policy</div>
+        <div class="policy-item">
+          <div class="policy-dot"></div>
+          <div class="policy-text"><strong>Report window</strong> — Any issue must be reported within 24 hours of booking completion.</div>
+        </div>
+        <div class="policy-item">
+          <div class="policy-dot"></div>
+          <div class="policy-text"><strong>Resolution</strong> — We review both sides and resolve within 10 business days. Fair for everyone.</div>
+        </div>
+        <div class="policy-item">
+          <div class="policy-dot"></div>
+          <div class="policy-text"><strong>Damage claims</strong> — Covered by booking insurance (coming soon).</div>
+        </div>
+        <div class="policy-item">
+          <div class="policy-dot"></div>
+          <div class="policy-text"><strong>Appeals</strong> — One appeal allowed per dispute. We take every case seriously.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <div class="section-label">Common questions</div>
+    <h2 class="section-title">Frequently asked.</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">How quickly can I get a helper?</div>
+        <div class="faq-a">We confirm most bookings within 2 hours. For same-day bookings availability depends on helpers in your area. We recommend booking at least 24 hours in advance for guaranteed availability.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do helpers bring their own supplies and equipment?</div>
+        <div class="faq-a">Quelpit provides helpers only. Customers are responsible for supplying their own cleaning products, equipment, and materials where needed. If you need cleaning supplies we can point you to a recommended kit.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What if I'm not happy with the work?</div>
+        <div class="faq-a">Report any issue within 24 hours of your booking completing. We review both sides and resolve within 10 business days. Our goal is always a fair outcome for everyone involved.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I request the same helper again?</div>
+        <div class="faq-a">Yes — if you had a great experience with a specific helper you can request them for future bookings. Subject to their availability in your area.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Are helpers insured?</div>
+        <div class="faq-a">Protection insurance on both the sides are coming soon.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How do I become a helper?</div>
+        <div class="faq-a">Fill out the helper application form. We review within 24 hours and arrange a background check — the cost is fully reimbursed after your first 5 completed bookings. Once cleared you can start accepting bookings near your area.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do I need a car to be a helper?</div>
+        <div class="faq-a">No. Quelpit is built for helpers who use public transit. We match you to jobs close to where you already are so you never need a car to earn on our platform.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">When do helpers get paid?</div>
+        <div class="faq-a">Every Friday for the previous week's completed bookings. Reliable, predictable, no delays.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-banner">
+  <div class="container">
+    <h2>Ready to get started?</h2>
+    <p>Book a helper or join as one. Both take less than 2 minutes.</p>
+    <div class="cta-buttons">
+      <a href="https://forms.gle/3oJVq4TzAdUeT4yA6" class="btn-white" target="_blank">Book a helper</a>
+      <a href="https://forms.gle/2G9TXDmeYk8jnKFo8" class="btn-white-outline" target="_blank">Become a helper</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Quelpit<span>.</span></div>
+      <div class="footer-tagline">Affordable help when you need it, real income when you want it.</div>
+    </div>
+    <div class="footer-links">
+      <a href="helpers.html">Helpers</a>
+      <a href="services.html">Services</a>
+      <a href="how-it-works.html">How it works</a>
+      <a href="mailto:support@quelpit.ca">support@quelpit.ca</a>
+      <a href="https://quelpit.ca">quelpit.ca</a>
+    </div>
+    <div class="footer-links">
+      <a href="https://instagram.com/justquelpit" target="_blank">Instagram</a>
+      <a href="https://tiktok.com/@justquelpit" target="_blank">TikTok</a>
+      <a href="https://facebook.com/justquelpit" target="_blank">Facebook</a>
+      <a href="https://linkedin.com/company/justquelpit" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Quelpit. All rights reserved. &nbsp;|&nbsp; <a href="privacy-policy.html" style="color:rgba(255,255,255,0.25);text-decoration:none;">Privacy</a> &nbsp;|&nbsp; <a href="terms.html" style="color:rgba(255,255,255,0.25);text-decoration:none;">Terms</a></div>
+    <div class="footer-social">
+      <a href="mailto:support@quelpit.ca">Contact us</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.querySelector('nav');
+  const navCtas = document.querySelector('.nav-cta-group');
+  const hamburger = document.querySelector('.hamburger');
+  const mobileMenu = document.querySelector('.mobile-menu');
+
+  function updateHeaderState() {
+    const isScrolled = window.scrollY > 100;
+    nav.classList.toggle('scrolled', isScrolled);
+    if (navCtas) navCtas.classList.toggle('show', isScrolled);
+  }
+
+  updateHeaderState();
+  window.addEventListener('scroll', updateHeaderState);
+
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', () => {
+      const isOpen = hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('show', isOpen);
+      nav.classList.toggle('menu-open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    mobileMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('show');
+        nav.classList.remove('menu-open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+</script>
+
+</body>
+</html>
