@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /booking.html
+Disallow: /review.html
+
+Sitemap: https://quelpit.ca/sitemap.xml
