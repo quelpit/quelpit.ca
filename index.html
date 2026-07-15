@@ -725,6 +725,10 @@
     .footer-bottom { flex-direction: column; text-align: center; }
     .btn { min-width: 140px; padding: 14px 24px; }
   }
+
+  @media (max-width: 600px) {
+    .mission-grid { grid-template-columns: 1fr !important; }
+  }
 </style>
   <!-- Schema Markup — Local Business -->
   <script type="application/ld+json">
@@ -820,6 +824,27 @@
     <div class="stat">
       <div class="stat-number">2hr</div>
       <div class="stat-label">minimum booking</div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section style="background:var(--black);padding:80px 24px;">
+  <div style="max-width:720px;margin:0 auto;text-align:center;">
+    <div style="font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--accent-light);margin-bottom:16px;">Why we exist</div>
+    <h2 style="font-family:'Sora',sans-serif;font-size:clamp(28px,4vw,42px);font-weight:700;color:var(--white);letter-spacing:-1.2px;line-height:1.2;margin-bottom:32px;">Just people<br>helping people.</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;text-align:left;margin-bottom:40px;">
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:28px;">
+        <div style="font-family:'Sora',sans-serif;font-weight:600;color:var(--white);font-size:16px;margin-bottom:10px;">People who need help</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.5);line-height:1.7;">Need help with moving, cleaning, assembly and more — without the high prices that traditional agencies and professionals charge.</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:28px;">
+        <div style="font-family:'Sora',sans-serif;font-weight:600;color:var(--white);font-size:16px;margin-bottom:10px;">People who want to work</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.5);line-height:1.7;">Looking for flexible, local work that fits around their life — without the rigid requirements of traditional employment.</div>
+      </div>
+    </div>
+    <div style="background:rgba(82,183,136,0.08);border:1px solid rgba(82,183,136,0.2);border-radius:20px;padding:32px;">
+      <p style="font-size:16px;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:0;">Quelpit™ exists to connect these two realities. <strong style="color:var(--white);">Affordable help for those who need it. Real income for those who want it.</strong> No agency markups. No barriers. Just community.</p>
     </div>
   </div>
 </section>
