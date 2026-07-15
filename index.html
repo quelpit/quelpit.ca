@@ -729,6 +729,13 @@
   @media (max-width: 600px) {
     .mission-grid { grid-template-columns: 1fr !important; }
   }
+
+  @media (max-width: 768px) {
+    .trust-grid { grid-template-columns: 1fr !important; }
+  }
+  @media (max-width: 600px) {
+    .trust-grid { grid-template-columns: 1fr !important; }
+  }
 </style>
   <!-- Schema Markup — Local Business -->
   <script type="application/ld+json">
@@ -1062,6 +1069,70 @@
         <a href="https://forms.gle/2G9TXDmeYk8jnKFo8" class="btn btn-apply-now" target="_blank">Apply now</a>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- TRUST SECTION -->
+<section style="background:var(--grey-100);padding:72px 24px;">
+  <div style="max-width:960px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:48px;">
+      <div style="font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;">Your safety</div>
+      <h2 style="font-family:'Sora',sans-serif;font-size:clamp(24px,3vw,36px);font-weight:700;color:var(--black);letter-spacing:-1px;line-height:1.2;">Built on trust.<br>Every step of the way.</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:48px;">
+
+      <div style="background:var(--white);border-radius:20px;padding:28px;border:1px solid var(--grey-200);">
+        <div style="width:44px;height:44px;border-radius:12px;background:var(--accent-bg);display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:20px;">🛡️</div>
+        <div style="font-family:'Sora',sans-serif;font-weight:700;color:var(--black);font-size:15px;margin-bottom:8px;">Background checked</div>
+        <div style="font-size:13px;color:var(--grey-600);line-height:1.7;">Every helper passes a criminal background check and identity verification before their first booking. No exceptions.</div>
+      </div>
+
+      <div style="background:var(--white);border-radius:20px;padding:28px;border:1px solid var(--grey-200);">
+        <div style="width:44px;height:44px;border-radius:12px;background:var(--accent-bg);display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:20px;">✅</div>
+        <div style="font-family:'Sora',sans-serif;font-weight:700;color:var(--black);font-size:15px;margin-bottom:8px;">Identity verified</div>
+        <div style="font-size:13px;color:var(--grey-600);line-height:1.7;">Every helper verifies their government-issued ID and work authorization before joining the platform.</div>
+      </div>
+
+      <div style="background:var(--white);border-radius:20px;padding:28px;border:1px solid var(--grey-200);">
+        <div style="width:44px;height:44px;border-radius:12px;background:var(--accent-bg);display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:20px;">⭐</div>
+        <div style="font-family:'Sora',sans-serif;font-weight:700;color:var(--black);font-size:15px;margin-bottom:8px;">Reviewed after every booking</div>
+        <div style="font-size:13px;color:var(--grey-600);line-height:1.7;">Customers review helpers after every completed booking. Ratings are permanent and publicly visible on every helper profile.</div>
+      </div>
+
+      <div style="background:var(--white);border-radius:20px;padding:28px;border:1px solid var(--grey-200);">
+        <div style="width:44px;height:44px;border-radius:12px;background:var(--accent-bg);display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:20px;">💳</div>
+        <div style="font-family:'Sora',sans-serif;font-weight:700;color:var(--black);font-size:15px;margin-bottom:8px;">Secure payments via Stripe</div>
+        <div style="font-size:13px;color:var(--grey-600);line-height:1.7;">All payments are processed by Stripe — the same payment infrastructure trusted by Amazon, Shopify and Google. Quelpit™ never stores your card details.</div>
+      </div>
+
+      <div style="background:var(--white);border-radius:20px;padding:28px;border:1px solid var(--grey-200);">
+        <div style="width:44px;height:44px;border-radius:12px;background:var(--accent-bg);display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:20px;">📋</div>
+        <div style="font-family:'Sora',sans-serif;font-weight:700;color:var(--black);font-size:15px;margin-bottom:8px;">Registered Canadian business</div>
+        <div style="font-size:13px;color:var(--grey-600);line-height:1.7;">Quelpit™ is a registered Canadian business operating under Alberta Sole Proprietorship. CIPO Trademark Application #2487064 filed July 2026.</div>
+      </div>
+
+      <div style="background:var(--white);border-radius:20px;padding:28px;border:1px solid var(--grey-200);">
+        <div style="width:44px;height:44px;border-radius:12px;background:var(--accent-bg);display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:20px;">🤝</div>
+        <div style="font-family:'Sora',sans-serif;font-weight:700;color:var(--black);font-size:15px;margin-bottom:8px;">Dispute protection</div>
+        <div style="font-size:13px;color:var(--grey-600);line-height:1.7;">Any issue with a booking is reviewed and resolved within 10 business days. Helper no-show? Full refund guaranteed, no questions asked.</div>
+      </div>
+
+    </div>
+
+    <!-- Stripe + Registered badge row -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:32px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:10px;background:var(--white);border:1px solid var(--grey-200);border-radius:100px;padding:10px 20px;">
+        <span style="font-size:14px;color:var(--grey-600);">Payments secured by</span>
+        <span style="font-family:'Sora',sans-serif;font-weight:700;color:#635BFF;font-size:15px;">Stripe</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;background:var(--white);border:1px solid var(--grey-200);border-radius:100px;padding:10px 20px;">
+        <span style="font-size:14px;color:var(--grey-600);">🇨🇦 Registered Canadian Business</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;background:var(--white);border:1px solid var(--grey-200);border-radius:100px;padding:10px 20px;">
+        <span style="font-size:14px;color:var(--grey-600);">Trademark™ Filed — CIPO #2487064</span>
+      </div>
+    </div>
+
   </div>
 </section>
 
