@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rahul Bhagat — Quelpit™ Helper | Scarborough, Toronto</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<meta name="description" content="Rahul Bhagat is a verified Quelpit helper in Scarborough, Toronto. Background checked, identity verified, and ready to help with moving, cleaning, snow removal, yard work and more.">
+<meta property="og:title" content="Rahul Bhagat — Quelpit™ Verified Helper">
+<meta property="og:description" content="Background checked and verified helper in Scarborough, Toronto. Moving, cleaning, snow removal, yard work and more.">
+<meta property="og:image" content="https://quelpit.ca/rahul-bhagat.jpg">
+<style>
+  :root {
+    --black: #0A0A0A;
+    --white: #FAFAFA;
+    --grey-100: #F4F4F2;
+    --grey-200: #E8E8E4;
+    --grey-400: #9E9E96;
+    --grey-600: #5A5A54;
+    --accent: #2D6A4F;
+    --accent-light: #52B788;
+    --accent-bg: #F0FAF4;
+    --warm: #F7F3EE;
+    --font-display: 'Sora', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); background: var(--white); color: var(--black); font-size: 16px; line-height: 1.6; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px; background: rgba(250,250,250,0.92);
+    backdrop-filter: blur(12px); border-bottom: 1px solid var(--grey-200);
+  }
+  .nav-logo { font-family: var(--font-display); font-weight: 700; font-size: 22px; color: var(--black); letter-spacing: -0.5px; text-decoration: none; }
+  .nav-logo span { color: var(--accent); }
+  .nav-back { font-size: 14px; color: var(--grey-600); text-decoration: none; }
+  .nav-back:hover { color: var(--black); }
+
+  /* HERO */
+  .hero {
+    background: var(--black);
+    padding: 120px 24px 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(82,183,136,0.06) 0%, transparent 70%);
+    top: -200px; right: -100px;
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 48px;
+  }
+  .helper-avatar-large {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 3px solid rgba(82,183,136,0.4);
+    flex-shrink: 0;
+  }
+  .hero-info { flex: 1; }
+  .hero-label {
+    font-size: 12px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--accent-light); margin-bottom: 10px;
+  }
+  .hero-name {
+    font-family: var(--font-display); font-size: clamp(32px, 5vw, 48px);
+    font-weight: 700; color: var(--white); letter-spacing: -1.5px;
+    line-height: 1.1; margin-bottom: 12px;
+  }
+  .hero-area {
+    font-size: 15px; color: rgba(255,255,255,0.4); margin-bottom: 20px;
+  }
+  .hero-badges { display: flex; gap: 10px; flex-wrap: wrap; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 500;
+  }
+  .badge-verified {
+    background: rgba(82,183,136,0.12);
+    border: 1px solid rgba(82,183,136,0.25);
+    color: var(--accent-light);
+  }
+  .badge-checked {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* MAIN CONTENT */
+  .main { max-width: 800px; margin: 0 auto; padding: 56px 24px 80px; }
+
+  /* STATS ROW */
+  .stats-row {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 16px; margin-bottom: 40px;
+  }
+  .stat-card {
+    background: var(--grey-100); border-radius: 16px; padding: 20px;
+    text-align: center;
+  }
+  .stat-value {
+    font-family: var(--font-display); font-size: 28px; font-weight: 700;
+    color: var(--black); letter-spacing: -1px; margin-bottom: 4px;
+  }
+  .stat-label { font-size: 12px; color: var(--grey-400); text-transform: uppercase; letter-spacing: 1px; }
+
+  /* ABOUT */
+  .section-title {
+    font-family: var(--font-display); font-size: 20px; font-weight: 700;
+    color: var(--black); letter-spacing: -0.5px; margin-bottom: 16px;
+  }
+  .about-text { font-size: 15px; color: var(--grey-600); line-height: 1.8; margin-bottom: 40px; }
+
+  /* SERVICES */
+  .services-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; }
+  .service-tag {
+    padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 500;
+    background: var(--accent-bg); color: var(--accent);
+    border: 1px solid rgba(45,106,79,0.15);
+  }
+
+  /* LANGUAGES */
+  .lang-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 40px; }
+  .lang-tag {
+    padding: 6px 14px; border-radius: 100px; font-size: 13px;
+    background: var(--grey-100); color: var(--grey-600);
+    border: 1px solid var(--grey-200);
+  }
+
+  /* TRUST BLOCK */
+  .trust-block {
+    background: var(--black); border-radius: 20px; padding: 28px;
+    margin-bottom: 40px;
+  }
+  .trust-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .trust-item:last-child { border-bottom: none; }
+  .trust-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent-light); flex-shrink: 0; margin-top: 6px;
+  }
+  .trust-text { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.6; }
+  .trust-text strong { color: var(--white); font-weight: 500; }
+
+  /* REVIEWS */
+  .reviews-section { margin-bottom: 40px; }
+  .no-reviews {
+    background: var(--grey-100); border-radius: 16px; padding: 32px;
+    text-align: center; color: var(--grey-400); font-size: 14px;
+  }
+
+  /* BOOK CTA */
+  .book-cta {
+    background: var(--accent-bg); border: 1.5px solid rgba(45,106,79,0.15);
+    border-radius: 20px; padding: 32px; text-align: center;
+  }
+  .book-cta h3 {
+    font-family: var(--font-display); font-size: 22px; font-weight: 700;
+    color: var(--black); letter-spacing: -0.5px; margin-bottom: 8px;
+  }
+  .book-cta p { font-size: 14px; color: var(--grey-600); margin-bottom: 24px; }
+  .btn-book {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 14px 32px; border-radius: 100px; font-size: 15px; font-weight: 600;
+    font-family: var(--font-display); background: var(--accent); color: var(--white);
+    text-decoration: none; transition: all 0.2s; border: none; cursor: pointer;
+  }
+  .btn-book:hover { background: var(--black); transform: translateY(-1px); }
+
+  /* FOOTER */
+  footer { background: var(--black); padding: 40px 24px; text-align: center; border-top: 1px solid rgba(255,255,255,0.06); }
+  .footer-text { font-size: 13px; color: rgba(255,255,255,0.3); margin-bottom: 6px; }
+  .footer-text a { color: var(--accent-light); text-decoration: none; }
+
+  @media (max-width: 768px) {
+    .stats-row { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    nav { padding: 16px 24px; }
+    .hero-inner { flex-direction: column; gap: 24px; text-align: center; }
+    .hero-badges { justify-content: center; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .services-grid { gap: 8px; }
+    .service-tag { font-size: 12px; padding: 6px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Quelpit<span>.</span></a>
+  <a href="helpers.html" class="nav-back">← All helpers</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <img src="rahul-bhagat.jpg" alt="Rahul Bhagat — Quelpit Helper" class="helper-avatar-large">
+    <div class="hero-info">
+      <div class="hero-label">Verified Helper</div>
+      <div class="hero-name">Rahul Bhagat</div>
+      <div class="hero-area">📍 Scarborough, Toronto</div>
+      <div class="hero-badges">
+        <span class="badge badge-verified">✓ Background checked</span>
+        <span class="badge badge-verified">✓ Identity verified</span>
+        <span class="badge badge-checked">New helper</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-value">0</div>
+      <div class="stat-label">Bookings</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">—</div>
+      <div class="stat-label">Rating</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">$20+</div>
+      <div class="stat-label">Per hour</div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="section-title">About Rahul</div>
+  <div class="about-text">Rahul is a reliable and friendly helper based in Scarborough, Toronto. He's comfortable with a wide range of home services — from moving and cleaning to snow removal and yard work. Whatever needs doing, Rahul gets it done. He speaks English, Hindi and Gujarati, making him a great fit for a wide range of customers across Toronto.</div>
+
+  <!-- SERVICES -->
+  <div class="section-title">Services offered</div>
+  <div class="services-grid">
+    <span class="service-tag">Moving & Heavy Labour</span>
+    <span class="service-tag">Deep Cleaning</span>
+    <span class="service-tag">Standard Cleaning</span>
+    <span class="service-tag">Snow Removal</span>
+    <span class="service-tag">General Help & Errands</span>
+    <span class="service-tag">Decluttering & Sorting</span>
+    <span class="service-tag">Pre & Post Move Clean</span>
+    <span class="service-tag">Yard & Garden Help</span>
+  </div>
+
+  <!-- LANGUAGES -->
+  <div class="section-title">Languages</div>
+  <div class="lang-row">
+    <span class="lang-tag">English</span>
+    <span class="lang-tag">Hindi</span>
+    <span class="lang-tag">Gujarati</span>
+  </div>
+
+  <!-- TRUST -->
+  <div class="section-title">Verified by Quelpit™</div>
+  <div class="trust-block">
+    <div class="trust-item">
+      <div class="trust-dot"></div>
+      <div class="trust-text"><strong>Criminal background check passed</strong> — verified before first booking</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-dot"></div>
+      <div class="trust-text"><strong>Identity verified</strong> — government-issued photo ID confirmed</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-dot"></div>
+      <div class="trust-text"><strong>Work authorization confirmed</strong> — eligible to work in Canada</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-dot"></div>
+      <div class="trust-text"><strong>Reviews are permanent</strong> — all ratings verified against completed bookings and visible forever</div>
+    </div>
+  </div>
+
+  <!-- REVIEWS -->
+  <div class="section-title">Reviews</div>
+  <div class="reviews-section">
+    <div class="no-reviews">No reviews yet — Rahul is new to the platform. Be the first to book and leave a review.</div>
+  </div>
+
+  <!-- BOOK CTA -->
+  <div class="book-cta">
+    <h3>Book Rahul today</h3>
+    <p>Available in Scarborough, Toronto. Submit a booking request and we'll confirm with Rahul within 2 hours.</p>
+    <a href="https://forms.gle/yrHXEJniFoMprRH49" target="_blank" class="btn-book">Book now →</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-text">Questions? Email <a href="mailto:support@quelpit.ca">support@quelpit.ca</a></div>
+  <div class="footer-text">© 2026 Quelpit™. All rights reserved. &nbsp;|&nbsp; <a href="privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="terms.html">Terms</a></div>
+</footer>
+
+</body>
+</html>
