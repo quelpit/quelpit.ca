@@ -341,13 +341,7 @@
 <div class="main">
 
   <!-- HELPER INFO -->
-  <div class="helper-info">
-    <div class="helper-avatar">Q</div>
-    <div>
-      <div class="helper-name">[Helper Name]</div>
-      <div class="helper-meta">[Service] · [Area], Toronto</div>
-    </div>
-  </div>
+
 
   <!-- REVIEW FORM -->
   <div id="review-form">
@@ -372,7 +366,19 @@
     <!-- SERVICE -->
     <div class="form-group">
       <label class="form-label">Service booked</label>
-      <select class="form-select">
+      <!-- HELPER SELECT -->
+      <div class="form-group">
+        <label class="form-label">Which helper did you book? *</label>
+        <select class="form-select" id="helper-select" required>
+          <option value="" disabled selected>Select your helper</option>
+          <option value="rahul-bhagat">Rahul Bhagat</option>
+        </select>
+      </div>
+
+      <!-- SERVICE SELECT -->
+      <div class="form-group">
+        <label class="form-label">Service booked *</label>
+      <select class="form-select" id="service-select" required>
         <option value="" disabled selected>Select the service you booked</option>
         <option>Moving & Heavy Labour</option>
         <option>Deep Cleaning</option>
@@ -382,6 +388,7 @@
         <option>General Help & Errands</option>
         <option>Pre & Post Move Clean</option>
         <option>Decluttering & Sorting</option>
+        <option>Yard & Garden Help</option>
         <option>Complete Move Package</option>
       </select>
     </div>
