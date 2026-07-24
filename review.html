@@ -456,11 +456,11 @@
   </div>
 
   <!-- SUCCESS STATE -->
-  <div class="success-state" id="success-state">
-    <div class="success-icon">✓</div>
-    <div class="success-title">Review submitted.</div>
-    <div class="success-sub">Thank you. Your review will be added to your helper's profile after verification. It means a lot to them.</div>
-    <a href="helpers.html" class="btn-profile">Back to helpers →</a>
+  <div class="success-state" id="success-state" style="display:none;text-align:center;padding:64px 24px;">
+    <div class="success-icon" style="width:72px;height:72px;border-radius:50%;background:rgba(82,183,136,0.15);border:2px solid rgba(82,183,136,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:28px;color:#52B788;">✓</div>
+    <div class="success-title" style="font-family:'Sora',sans-serif;font-size:28px;font-weight:700;color:#FAFAFA;letter-spacing:-1px;margin-bottom:12px;">Review submitted.</div>
+    <div class="success-sub" style="font-size:15px;color:rgba(255,255,255,0.4);line-height:1.6;max-width:400px;margin:0 auto 32px;">Thank you. Your review will appear on your helper's profile shortly after verification. It means a lot to them.</div>
+    <a href="helpers.html" style="display:inline-flex;padding:14px 32px;border-radius:100px;font-size:15px;font-weight:500;text-decoration:none;background:rgba(255,255,255,0.06);color:#FAFAFA;border:1.5px solid rgba(255,255,255,0.12);font-family:'DM Sans',sans-serif;">Back to helpers →</a>
   </div>
 
 </div>
@@ -485,16 +485,56 @@
   }
 
   function submitReview() {
-    if (selectedRating === 0) {
-      alert('Please select a star rating before submitting.');
-      return;
-    }
-    document.getElementById('review-form').style.display = 'none';
-    document.getElementById('success-state').style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Validate
+    if (selectedRating === 0) { alert('Please select a star rating.'); return; }
+    if (!document.getElementById('helper-select').value) { alert('Please select your helper.'); return; }
+    if (!document.getElementById('service-select').value) { alert('Please select the service booked.'); return; }
+    if (!document.getElementById('booking-ref').value.trim()) { alert('Please enter your booking reference.'); return; }
+    if (!document.getElementById('reviewer-name').value.trim()) { alert('Please enter your first name.'); return; }
+
+    // Collect data
+    const helper = document.getElementById('helper-select').value;
+    const service = document.getElementById('service-select').value;
+    const bookingRef = document.getElementById('booking-ref').value.trim();
+    const name = document.getElementById('reviewer-name').value.trim();
+    const text = document.getElementById('review-text').value.trim();
+    const date = new Date().toLocaleDateString('en-CA', { year: 'numeric', month: 'short', day: 'numeric' });
+    const stars = '★'.repeat(selectedRating) + '☆'.repeat(5 - selectedRating);
+
+    // Build email
+    const subject = encodeURIComponent(`New Review — ${helper} — ${bookingRef} — ${selectedRating}/5 stars`);
+    const body = encodeURIComponent(
+`NEW QUELPIT REVIEW SUBMITTED
+=============================
+Helper: ${helper}
+Booking Ref: ${bookingRef}
+Reviewer: ${name}
+Rating: ${selectedRating}/5 stars ${stars}
+Service: ${service}
+Date: ${date}
+Review: ${text || '(no written review)'}
+
+ADD TO reviews.json:
+{
+  "name": "${name}",
+  "rating": ${selectedRating},
+  "service": "${service}",
+  "text": "${text}",
+  "date": "${date}"
+}`
+    );
+
+    // Open email
+    window.open(`mailto:support@quelpit.ca?subject=${subject}&body=${body}`);
+
+    // Show success state
+    setTimeout(() => {
+      document.getElementById('review-form').style.display = 'none';
+      document.getElementById('success-state').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 500);
   }
 </script>
-
 
 <div style="text-align:center; padding: 24px; font-size:12px; color:rgba(255,255,255,0.2);">
   <a href="privacy-policy.html" style="color:rgba(255,255,255,0.2); text-decoration:none;">Privacy</a>
