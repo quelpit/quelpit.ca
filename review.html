@@ -456,7 +456,7 @@
   </div>
 
   <!-- SUCCESS STATE -->
-  <div class="success-state" id="success-state" style="display:none;text-align:center;padding:64px 24px;">
+  <div class="success-state" id="success-state" style="display:none;text-align:center;padding:64px 24px;visibility:visible;">
     <div class="success-icon" style="width:72px;height:72px;border-radius:50%;background:rgba(82,183,136,0.15);border:2px solid rgba(82,183,136,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:28px;color:#52B788;">✓</div>
     <div class="success-title" style="font-family:'Sora',sans-serif;font-size:28px;font-weight:700;color:#FAFAFA;letter-spacing:-1px;margin-bottom:12px;">Review submitted.</div>
     <div class="success-sub" style="font-size:15px;color:rgba(255,255,255,0.4);line-height:1.6;max-width:400px;margin:0 auto 32px;">Thank you. Your review will appear on your helper's profile shortly after verification. It means a lot to them.</div>
@@ -527,12 +527,12 @@ ADD TO reviews.json:
     // Open email
     window.open(`mailto:support@quelpit.ca?subject=${subject}&body=${body}`);
 
-    // Show success state
-    setTimeout(() => {
-      document.getElementById('review-form').style.display = 'none';
-      document.getElementById('success-state').style.display = 'block';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 500);
+    // Show success state immediately
+    document.getElementById('review-form').style.display = 'none';
+    document.getElementById('success-state').style.display = 'block';
+    document.getElementById('success-state').style.visibility = 'visible';
+    document.getElementById('success-state').style.opacity = '1';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 </script>
 
