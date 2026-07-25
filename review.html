@@ -501,6 +501,11 @@
     const date = new Date().toLocaleDateString('en-CA', { year: 'numeric', month: 'short', day: 'numeric' });
     const stars = '★'.repeat(selectedRating) + '☆'.repeat(5 - selectedRating);
 
+    // Collect quick options
+    const onTime = document.querySelector('[onclick*="time"].selected')?.textContent || 'Not answered';
+    const satisfaction = document.querySelector('[onclick*="satisfaction"].selected')?.textContent || 'Not answered';
+    const rebook = document.querySelector('[onclick*="rebook"].selected')?.textContent || 'Not answered';
+
     // Build email
     const subject = encodeURIComponent(`New Review — ${helper} — ${bookingRef} — ${selectedRating}/5 stars`);
     const body = encodeURIComponent(
@@ -513,6 +518,9 @@ Rating: ${selectedRating}/5 stars ${stars}
 Service: ${service}
 Date: ${date}
 Review: ${text || '(no written review)'}
+On time: ${onTime}
+Work satisfactory: ${satisfaction}
+Would rebook: ${rebook}
 
 ADD TO reviews.json:
 {
