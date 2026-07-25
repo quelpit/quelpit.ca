@@ -389,7 +389,6 @@
       const noMsg = document.getElementById('no-reviews-msg');
       const countEl = document.getElementById('review-count');
       const statRating = document.getElementById('stat-rating');
-      const statBookings = document.getElementById('stat-bookings');
       const starSummary = document.getElementById('star-summary');
       const avgStars = document.getElementById('avg-stars');
       const avgStarDisplay = document.getElementById('avg-star-display');
@@ -400,7 +399,8 @@
 
       // Update stats
       statRating.textContent = avgRounded.toFixed(1);
-      statBookings.textContent = reviews.length;
+      // Don't overwrite bookings — it's hardcoded separately
+      // statBookings shows total bookings, not just reviewed ones
       countEl.textContent = '(' + reviews.length + ')';
 
       // Show star summary
