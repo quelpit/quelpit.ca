@@ -160,7 +160,7 @@
     display: block;
     width: 26px;
     height: 2px;
-    background: var(--black);
+    background: var(--white);
     border-radius: 2px;
     transition: transform 0.2s ease, opacity 0.2s ease;
   }
@@ -206,16 +206,14 @@
   .hamburger { display: flex; }
     .mobile-menu {
       position: fixed;
-      top: 62px;
-      left: 0;
-      right: 0;
+      top: 65px; left: 0; right: 0;
       z-index: 99;
       display: flex;
       flex-direction: column;
-      gap: 18px;
-      padding: 20px 24px 24px;
-      background: var(--warm);
-      border-bottom: 1px solid var(--grey-200);
+      gap: 0;
+      padding: 8px 24px 24px;
+      background: rgba(10,10,10,0.98);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
       transform: translateY(-120%);
       opacity: 0;
       pointer-events: none;
@@ -226,16 +224,18 @@
       opacity: 1;
       pointer-events: auto;
     }
-    .mobile-menu .mobile-cta {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      padding-top: 4px;
+    .mobile-menu a {
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      transition: color 0.2s;
+      display: block;
     }
-    .mobile-menu .btn {
-      width: 100%;
-      min-width: 0;
-    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover, .mobile-menu a.active { color: var(--white); }
   }
 
   /* BUTTONS */
@@ -749,10 +749,6 @@
       <a href="how-it-works.html">How it works</a>
       <a href="results.html" class="active">Results</a>
     </div>
-    <div class="nav-cta-group">
-      <a href="index.html#book" class="btn btn-primary">Book a helper</a>
-      <a href="index.html#earn" class="btn btn-secondary">Become a helper</a>
-    </div>
     <a href="https://forms.gle/fZ7qRDQeyuPhdc4n8" class="nav-cta" target="_blank">Book a helper</a>
     <button class="hamburger" type="button" aria-label="Open menu" aria-expanded="false">
       <span></span>
@@ -766,13 +762,7 @@
   <a href="services.html">Services</a>
   <a href="how-it-works.html">How it works</a>
   <a href="results.html" class="active">Results</a>
-
-<div class="mobile-cta">
-    <a href="index.html#book" class="btn btn-primary">Book a helper</a>
-    <a href="index.html#earn" class="btn btn-secondary">Become a helper</a>
-  </div>
-</div>
-
+  <a href="https://forms.gle/fZ7qRDQeyuPhdc4n8" target="_blank">Book a helper</a>
 </div>
 
 <!-- HERO -->
