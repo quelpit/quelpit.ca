@@ -1,7 +1,15 @@
 {
   "helpers": {
     "rahul-bhagat": {
-      "reviews": []
+      "reviews": [
+        {
+          "name": "Carlo",
+          "rating": 5,
+          "service": "Moving & Heavy Labour",
+          "text": "Moved mostly boxes",
+          "date": "Jul 24, 2026"
+        }
+      ]
     }
   }
 }
