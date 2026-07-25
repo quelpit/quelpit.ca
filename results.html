@@ -4,25 +4,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Quelpit offers moving help from $28/hr, cleaning from $25/hr, furniture assembly, snow removal and more in Scarborough & North York Toronto. Transparent pricing, no hidden fees.">
+  <meta name="description" content="Real before and after results from Quelpit™ helpers in Toronto. Moving, cleaning and more — see the difference our verified helpers make.">
   <meta name="keywords" content="moving help Toronto price, cleaning service Toronto price, furniture assembly Toronto, snow removal Toronto, home services Scarborough, home services North York">
   <meta name="author" content="Quelpit">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://quelpit.ca/services.html">
+  <link rel="canonical" href="https://quelpit.ca/results.html">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://quelpit.ca/services.html">
-  <meta property="og:title" content="Quelpit™ Services & Pricing">
-  <meta property="og:description" content="Moving from $28/hr, cleaning from $25/hr, assembly, snow removal & more. Transparent pricing in Toronto.">
+  <meta property="og:url" content="https://quelpit.ca/results.html">
+  <meta property="og:title" content="Quelpit™ — Real Results">
+  <meta property="og:description" content="Real before and after results from Quelpit™ helpers in Toronto.">
   <meta property="og:image" content="https://quelpit.ca/favicon.png">
   <meta property="og:site_name" content="Quelpit">
   <meta property="og:locale" content="en_CA">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Quelpit™ Services & Pricing">
-  <meta name="twitter:description" content="Moving from $28/hr, cleaning from $25/hr, assembly, snow removal & more. Transparent pricing in Toronto.">
+  <meta name="twitter:title" content="Quelpit™ — Real Results">
+  <meta name="twitter:description" content="Real before and after results from Quelpit™ helpers in Toronto.">
   <meta name="twitter:image" content="https://quelpit.ca/favicon.png">
   <meta name="twitter:site" content="@justquelpit">
 
@@ -30,7 +30,7 @@
   <meta name="geo.region" content="CA-ON">
   <meta name="geo.placename" content="Toronto, Ontario, Canada">
 
-<title>Services & Pricing — Moving, Cleaning & More | Quelpit™ Toronto</title>
+<title>Real Results — Before & After | Quelpit™</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="shortcut icon" href="favicon.png">
   <link rel="apple-touch-icon" href="favicon.png">
@@ -63,7 +63,7 @@
     overflow-x: hidden;
   }
 
-  /* NAV */
+  /* NAV — dark, always visible like helpers page */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -72,27 +72,21 @@
     align-items: center;
     justify-content: space-between;
     padding: 20px 48px;
-    background: transparent;
-    backdrop-filter: none;
-    border-bottom: 1px solid transparent;
-    transition: background 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
-  }
-  nav.scrolled,
-  nav.menu-open {
-    background: var(--warm);
+    background: rgba(10,10,10,0.92);
     backdrop-filter: blur(12px);
-    border-bottom-color: var(--grey-200);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    transition: all 0.3s;
   }
   .nav-logo {
     font-family: var(--font-display);
     font-weight: 700;
     font-size: 22px;
-    color: var(--black);
+    color: var(--white);
     letter-spacing: -0.5px;
     text-decoration: none;
     flex-shrink: 0;
   }
-  .nav-logo span { color: var(--accent); }
+  .nav-logo span { color: var(--accent-light); }
   .nav-right {
     display: flex;
     align-items: center;
@@ -106,18 +100,15 @@
     justify-content: flex-end;
     gap: 32px;
   }
-  .nav-links a,
-  .mobile-menu a:not(.btn) {
+  .nav-links a {
     font-size: 14px;
     font-weight: 500;
-    color: var(--grey-600);
+    color: rgba(255,255,255,0.5);
     text-decoration: none;
     transition: color 0.2s;
   }
   .nav-links a:hover,
-  .nav-links a.active,
-  .mobile-menu a:hover,
-  .mobile-menu a.active { color: var(--black); }
+  .nav-links a.active { color: var(--white); }
   .nav-cta-group {
     display: flex;
     align-items: center;
@@ -140,6 +131,19 @@
     min-width: 0;
     font-size: 14px;
   }
+  .nav-cta {
+    background: var(--warm);
+    color: var(--black);
+    padding: 11px 24px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s;
+    border: 1.5px solid var(--warm);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { background: var(--accent-light); border-color: var(--accent-light); }
   .hamburger {
     display: none;
     flex-direction: column;
@@ -186,7 +190,20 @@
     nav { padding: 16px 24px; }
     .nav-links,
     .nav-cta-group { display: none; }
-    .hamburger { display: flex; }
+    .nav-cta {
+    background: var(--warm);
+    color: var(--black);
+    padding: 11px 24px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s;
+    border: 1.5px solid var(--warm);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { background: var(--accent-light); border-color: var(--accent-light); }
+  .hamburger { display: flex; }
     .mobile-menu {
       position: fixed;
       top: 62px;
@@ -635,29 +652,108 @@
   @media (max-width: 768px) {
     nav { padding: 16px 24px; }
     .nav-links { display: none; }
+    .nav-cta { display: none; }
     .move-grid { grid-template-columns: 1fr; }
     .footer-inner { flex-direction: column; gap: 32px; }
     .footer-bottom { flex-direction: column; text-align: center; }
     .btn { min-width: 140px; padding: 14px 24px; }
   }
+
+  /* RESULTS PAGE */
+  .results-hero {
+    background: var(--black);
+    padding: 120px 24px 64px;
+    text-align: center;
+  }
+  .results-hero .section-label {
+    font-size: 12px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--accent-light); margin-bottom: 16px;
+  }
+  .results-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 700; color: var(--white);
+    letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 16px;
+  }
+  .results-hero p {
+    font-size: 16px; color: rgba(255,255,255,0.4);
+    max-width: 480px; margin: 0 auto; line-height: 1.7;
+  }
+  .results-main { max-width: 960px; margin: 0 auto; padding: 72px 24px 80px; }
+  .result-section { margin-bottom: 72px; }
+  .result-section-header { margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1.5px solid var(--grey-200); }
+  .result-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent-bg); border: 1px solid rgba(45,106,79,0.15);
+    border-radius: 100px; padding: 6px 16px;
+    font-size: 12px; font-weight: 600; color: var(--accent);
+    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px;
+  }
+  .result-title {
+    font-family: var(--font-display);
+    font-size: clamp(20px, 2.5vw, 28px);
+    font-weight: 700; color: var(--black);
+    letter-spacing: -0.8px; margin-bottom: 6px;
+  }
+  .result-meta { font-size: 13px; color: var(--grey-400); }
+  .ba-card { border-radius: 20px; overflow: hidden; margin-bottom: 10px; }
+  .ba-card img { width: 100%; height: auto; display: block; }
+  .ba-labels { display: flex; justify-content: space-between; padding: 8px 4px 0; margin-bottom: 12px; }
+  .ba-label {
+    background: rgba(0,0,0,0.7);
+    color: white; font-size: 11px; font-weight: 600;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 100px; display: inline-block;
+  }
+  .ba-label.after { background: rgba(45,106,79,0.85); }
+  .ba-caption { font-size: 13px; color: var(--grey-600); line-height: 1.6; margin-bottom: 32px; padding: 0 4px; }
+  .results-cta {
+    background: var(--black); border-radius: 24px;
+    padding: 56px 40px; text-align: center; margin-top: 32px;
+  }
+  .results-cta h2 {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 3vw, 34px);
+    font-weight: 700; color: var(--white);
+    letter-spacing: -1px; margin-bottom: 12px;
+  }
+  .results-cta p { font-size: 15px; color: rgba(255,255,255,0.4); margin-bottom: 32px; }
+  .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex; padding: 14px 28px; border-radius: 100px;
+    font-size: 15px; font-weight: 600; font-family: var(--font-display);
+    background: var(--accent-light); color: var(--black); text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-primary:hover { background: var(--white); }
+  .btn-secondary {
+    display: inline-flex; padding: 14px 28px; border-radius: 100px;
+    font-size: 15px; font-weight: 500; font-family: var(--font-display);
+    background: rgba(255,255,255,0.06); color: var(--white);
+    text-decoration: none; border: 1.5px solid rgba(255,255,255,0.12);
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.12); }
+  @media (max-width: 600px) {
+    .results-cta { padding: 40px 24px; }
+  }
 </style>
-</head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a href="index.html" class="nav-logo">Quelpit™<span>.</span></a>
   <div class="nav-right">
     <div class="nav-links">
       <a href="helpers.html">Helpers</a>
-      <a href="services.html" class="active">Services</a>
+      <a href="services.html">Services</a>
       <a href="how-it-works.html">How it works</a>
-      <a href="results.html">Results</a>
+      <a href="results.html" class="active">Results</a>
     </div>
     <div class="nav-cta-group">
       <a href="index.html#book" class="btn btn-primary">Book a helper</a>
       <a href="index.html#earn" class="btn btn-secondary">Become a helper</a>
     </div>
+    <a href="https://forms.gle/fZ7qRDQeyuPhdc4n8" class="nav-cta" target="_blank">Book a helper</a>
     <button class="hamburger" type="button" aria-label="Open menu" aria-expanded="false">
       <span></span>
       <span></span>
@@ -667,285 +763,111 @@
 </nav>
 <div class="mobile-menu">
   <a href="helpers.html">Helpers</a>
-  <a href="services.html" class="active">Services</a>
+  <a href="services.html">Services</a>
   <a href="how-it-works.html">How it works</a>
-  <a href="results.html">Results</a>
+  <a href="results.html" class="active">Results</a>
 
 <div class="mobile-cta">
     <a href="index.html#book" class="btn btn-primary">Book a helper</a>
     <a href="index.html#earn" class="btn btn-secondary">Become a helper</a>
   </div>
 </div>
+
 </div>
 
-<!-- PAGE HERO -->
-<section class="page-hero">
-  <div class="page-label">What we offer</div>
-  <h1>Help for every task.<br>No markups, no surprises.</h1>
-  <p>From moving to cleaning, assembly to snow removal — vetted helpers ready for whatever you need. No agencies, no markups, no surprises.</p>
-  <div class="page-hero-buttons">
-    <a href="index.html#book" class="btn btn-primary">Book a helper</a>
-    <a href="index.html#earn" class="btn btn-secondary">Become a helper</a>
-  </div>
+<!-- HERO -->
+<section class="results-hero">
+  <div class="section-label">Real results</div>
+  <h1>The difference<br>our helpers make.</h1>
+  <p>Real before and after photos from real Quelpit bookings. No filters, no staging — just honest work done right.</p>
 </section>
 
-<!-- SERVICES GRID -->
-<section class="services">
-  <div class="container">
-    <div class="section-label">All services</div>
-    <h2 class="section-title">Help you can actually trust.<br>At a price that makes sense.</h2>
-    <p class="section-sub">Work that gets the job done right, at a fraction of what agencies and specialists charge. Every helper is background checked, reviewed, and ready.</p>
-    <p class="section-note">Quelpit provides helpers only. Customers supply their own equipment and materials where needed.</p>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-number">01</div>
-        <div class="service-name">Moving & Heavy Labour</div>
-        <div class="service-desc">Furniture, boxes, appliances — loaded, moved, and placed where you need them. Real results without the agency price tag.</div>
-        <div class="service-details">
-          <span class="service-price">$28/hr per helper</span>
-          <span class="service-min">2hr minimum</span>
-        </div>
-      </div>
-      <div class="service-card">
-        <div class="service-number">02</div>
-        <div class="service-name">Deep Cleaning</div>
-        <div class="service-desc">Full top-to-bottom clean of your home or apartment. Move-out ready, landlord inspection ready, or just a fresh start.</div>
-        <div class="service-details">
-          <span class="service-price">$27/hr per helper</span>
-          <span class="service-min">2hr minimum</span>
-        </div>
-      </div>
-      <div class="service-card">
-        <div class="service-number">03</div>
-        <div class="service-name">Standard Cleaning</div>
-        <div class="service-desc">Regular maintenance clean to keep your home looking its best. Reliable, affordable, and consistent every time.</div>
-        <div class="service-details">
-          <span class="service-price">$25/hr per helper</span>
-          <span class="service-min">2hr minimum</span>
-        </div>
-      </div>
-      <div class="service-card">
-        <div class="service-number">04</div>
-        <div class="service-name">Furniture Assembly</div>
-        <div class="service-desc">Flatpack and IKEA furniture built properly the first time. No stress, no missing steps, no wasted afternoon on the floor.</div>
-        <div class="service-details">
-          <span class="service-price">$26/hr per helper</span>
-          <span class="service-min">2hr minimum</span>
-        </div>
-      </div>
-      <div class="service-card">
-        <div class="service-number">05</div>
-        <div class="service-name">Snow Removal</div>
-        <div class="service-desc">Driveway and walkway cleared before you need to leave. Canadian winters handled reliably and affordably.</div>
-        <div class="service-details">
-          <span class="service-price">$26/hr per helper</span>
-          <span class="service-min">2hr minimum</span>
-        </div>
-      </div>
-      <div class="service-card">
-        <div class="service-number">06</div>
-        <div class="service-name">General Help & Errands</div>
-        <div class="service-desc">Packing, general labour, odd jobs around the home. If it needs doing, we match you with someone ready to get it done.</div>
-        <div class="service-details">
-          <span class="service-price">$26/hr per helper</span>
-          <span class="service-min">2hr minimum</span>
-        </div>
-      </div>
-      <div class="service-card">
-        <div class="service-number">07</div>
-        <div class="service-name">Pre & Post Move Clean</div>
-        <div class="service-desc">Move out clean for your deposit, or a move-in clean for a fresh start. Thorough, affordable, and done on your schedule.</div>
-        <div class="service-details">
-          <span class="service-price">$27/hr per helper</span>
-          <span class="service-min">2hr minimum</span>
-        </div>
-      </div>
-      <div class="service-card">
-        <div class="service-number">08</div>
-        <div class="service-name">Decluttering & Sorting</div>
-        <div class="service-desc">Helpers assist with sorting and organising for donations or disposal. You direct, they do the heavy lifting.</div>
-        <div class="service-details">
-          <span class="service-price">$26/hr per helper</span>
-          <span class="service-min">2hr minimum</span>
-        </div>
-      </div>
-      <div class="service-card">
-        <div class="service-number">09</div>
-        <div class="service-name">Yard & Garden Help</div>
-        <div class="service-desc">Raking leaves, pulling weeds, bagging garden waste, moving soil and mulch bags. You direct and provide tools — helpers provide the labour.</div>
-        <div class="service-details">
-          <span class="service-price">$27/hr per helper</span>
-          <span class="service-min">2hr minimum</span>
-        </div>
-      </div>
-      <div class="service-card">
-        <div class="service-number">10</div>
-        <div class="service-name">Complete Move Package</div>
-        <div class="service-desc">Packing, moving, cleaning, unpacking — all in one booking. One price, zero coordination, everything handled A to Z.</div>
-        <div class="service-details">
-          <span class="service-price">Custom quote</span>
-          <span class="service-min">Contact us</span>
-        </div>
-      </div>
+<!-- MAIN -->
+<div class="results-main">
+
+  <!-- MOVING SECTION -->
+  <div class="result-section">
+    <div class="result-section-header">
+      <div class="result-tag">🚛 Moving & Heavy Labour</div>
+      <div class="result-title">Moving & Unboxing</div>
+      <div class="result-meta">July 2026 · 3 hours · 1 helper</div>
+    </div>
+
+    <div class="ba-card">
+      <img src="moving-1.jpg" alt="Truck bed before and after moving help">
+    </div>
+    <div class="ba-labels">
+      <span class="ba-label">Before</span>
+      <span class="ba-label after">After</span>
+    </div>
+    <p class="ba-caption">Truck bed loaded with boxes, furniture and items — fully cleared and unloaded.</p>
+
+    <div class="ba-card">
+      <img src="moving-2.jpg" alt="Moving truck before and after unloading">
+    </div>
+    <div class="ba-labels">
+      <span class="ba-label">Before</span>
+      <span class="ba-label after">After</span>
+    </div>
+    <p class="ba-caption">Moving truck packed with appliances, furniture and boxes — completely unloaded and cleared.</p>
+  </div>
+
+  <!-- CLEANING SECTION -->
+  <div class="result-section">
+    <div class="result-section-header">
+      <div class="result-tag">🧹 Deep Cleaning</div>
+      <div class="result-title">Full Home Deep Clean</div>
+      <div class="result-meta">July 2026 · 4 hours · 1 helper</div>
+    </div>
+
+    <div class="ba-card">
+      <img src="cleaning-3.jpg" alt="Kitchen before and after cleaning">
+    </div>
+    <div class="ba-labels">
+      <span class="ba-label">Before</span>
+      <span class="ba-label after">After</span>
+    </div>
+    <p class="ba-caption">Kitchen packed with moving boxes and clutter — counters, floors and surfaces fully cleared and cleaned.</p>
+
+    <div class="ba-card">
+      <img src="cleaning-2.jpg" alt="Behind stove before and after deep clean">
+    </div>
+    <div class="ba-labels">
+      <span class="ba-label">Before</span>
+      <span class="ba-label after">After</span>
+    </div>
+    <p class="ba-caption">Floor behind stove covered in debris, grease and grime — scrubbed clean down to the baseboards.</p>
+
+    <div class="ba-card">
+      <img src="cleaning-4.jpg" alt="Behind dryer before and after cleaning">
+    </div>
+    <div class="ba-labels">
+      <span class="ba-label">Before</span>
+      <span class="ba-label after">After</span>
+    </div>
+    <p class="ba-caption">Behind the dryer — accumulated debris, dust and items cleared completely.</p>
+
+    <div class="ba-card">
+      <img src="cleaning-5.jpg" alt="Laundry room before and after cleaning">
+    </div>
+    <div class="ba-labels">
+      <span class="ba-label">Before</span>
+      <span class="ba-label after">After</span>
+    </div>
+    <p class="ba-caption">Laundry room floor with scattered debris and grime — swept, scrubbed and spotless.</p>
+  </div>
+
+  <!-- CTA -->
+  <div class="results-cta">
+    <h2>Ready for results like these?</h2>
+    <p>Book a vetted, background-checked helper today.</p>
+    <div class="cta-btns">
+      <a href="https://forms.gle/fZ7qRDQeyuPhdc4n8" target="_blank" class="btn-primary">Book a helper →</a>
+      <a href="services.html" class="btn-secondary">See all services</a>
     </div>
   </div>
-</section>
 
-<!-- PRICING TABLE -->
-<section class="pricing">
-  <div class="container">
-    <div class="section-label">Pricing overview</div>
-    <h2 class="section-title">Clear pricing.<br>No hidden fees.</h2>
-    <p class="section-sub">Every service priced honestly. What you see is what you pay — no surprise charges, no minimum spend traps.</p>
-    <table class="pricing-table">
-      <thead>
-        <tr>
-          <th>Service</th>
-          <th>Rate per helper</th>
-          <th>Minimum booking</th>
-          <th>Minimum cost</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="service-col">Moving & Heavy Labour</td>
-          <td class="price">$28/hr</td>
-          <td>2 hours</td>
-          <td class="price">$56</td>
-        </tr>
-        <tr>
-          <td class="service-col">Deep Cleaning</td>
-          <td class="price">$27/hr</td>
-          <td>2 hours</td>
-          <td class="price">$54</td>
-        </tr>
-        <tr>
-          <td class="service-col">Standard Cleaning</td>
-          <td class="price">$25/hr</td>
-          <td>2 hours</td>
-          <td class="price">$50</td>
-        </tr>
-        <tr>
-          <td class="service-col">Furniture Assembly</td>
-          <td class="price">$26/hr</td>
-          <td>2 hours</td>
-          <td class="price">$52</td>
-        </tr>
-        <tr>
-          <td class="service-col">Snow Removal</td>
-          <td class="price">$26/hr</td>
-          <td>2 hour</td>
-          <td class="price">$52</td>
-        </tr>
-        <tr>
-          <td class="service-col">General Help & Errands</td>
-          <td class="price">$26/hr</td>
-          <td>2 hours</td>
-          <td class="price">$52</td>
-        </tr>
-        <tr>
-          <td class="service-col">Pre & Post Move Clean</td>
-          <td class="price">$27/hr</td>
-          <td>2 hours</td>
-          <td class="price">$54</td>
-        </tr>
-        <tr>
-          <td class="service-col">Decluttering & Sorting</td>
-          <td class="price">$26/hr</td>
-          <td>2 hours</td>
-          <td class="price">$52</td>
-        </tr>
-        <tr>
-          <td class="service-col">Yard & Garden Help</td>
-          <td class="price">$27/hr</td>
-          <td>2 hours</td>
-          <td class="price">$54</td>
-        </tr>
-        <tr>
-          <td class="service-col">Complete Move Package</td>
-          <td class="price">Custom</td>
-          <td>Full day</td>
-          <td class="price">Contact us</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<!-- COMPLETE MOVE -->
-<section class="complete-move">
-  <div class="container">
-    <div class="section-label">Our flagship service</div>
-    <h2 class="section-title">Complete Move Package.</h2>
-    <p class="section-sub">Every part of your move handled in one booking. Packing, moving, cleaning, unpacking — A to Z, zero coordination on your end.</p>
-    <div class="move-grid">
-      <div class="move-steps">
-        <div class="move-step">
-          <div class="move-step-num">01</div>
-          <div>
-            <div class="move-step-title">Pre-move packing</div>
-            <div class="move-step-desc">Helpers arrive the day before or morning of your move. Everything packed, labelled, and ready to go.</div>
-          </div>
-        </div>
-        <div class="move-step">
-          <div class="move-step-num">02</div>
-          <div>
-            <div class="move-step-title">Loading & truck</div>
-            <div class="move-step-desc">Driver helper picks up your U-Haul, loads everything at your current home. Fresh helpers arrive ready to work.</div>
-          </div>
-        </div>
-        <div class="move-step">
-          <div class="move-step-num">03</div>
-          <div>
-            <div class="move-step-title">Move & unload</div>
-            <div class="move-step-desc">Truck driven to your new home. Fresh unloading team arrives — everything carried in and placed.</div>
-          </div>
-        </div>
-        <div class="move-step">
-          <div class="move-step-num">04</div>
-          <div>
-            <div class="move-step-title">Old place deep clean</div>
-            <div class="move-step-desc">Cleaning team arrives at your old address. Full deep clean — spotless for your landlord inspection.</div>
-          </div>
-        </div>
-        <div class="move-step">
-          <div class="move-step-num">05</div>
-          <div>
-            <div class="move-step-title">Unpacking & settling in</div>
-            <div class="move-step-desc">Helpers unpack boxes and arrange furniture at your new home. You arrive to a place that's already set up.</div>
-          </div>
-        </div>
-      </div>
-      <div class="move-card">
-        <div class="move-card-title">Everything included.</div>
-        <div class="move-card-sub">One booking. One price. Zero coordination on your end.</div>
-        <div class="move-card-divider"></div>
-        <div class="move-card-feature">Pre-move packing assistance</div>
-        <div class="move-card-feature">U-Haul arranged and optimized</div>
-        <div class="move-card-feature">Loading at origin address</div>
-        <div class="move-card-feature">Truck driven to destination</div>
-        <div class="move-card-feature">Fresh helpers for unloading</div>
-        <div class="move-card-feature">Old place deep cleaned</div>
-        <div class="move-card-feature">Unpacking at new home</div>
-        <div class="move-card-feature">Truck returned after move</div>
-        <br>
-        <a href="https://forms.gle/fZ7qRDQeyuPhdc4n8" class="btn-white" style="display:block; text-align:center;" target="_blank">Get a quote →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta-banner">
-  <div class="container">
-    <h2>Ready to book?</h2>
-    <p>Tell us what you need and we will match you with a vetted helper within 2 hours.</p>
-    <div class="cta-buttons">
-      <a href="https://forms.gle/fZ7qRDQeyuPhdc4n8" class="btn-white" target="_blank">Book a helper</a>
-      <a href="https://forms.gle/hzXrLNh2x4FejqeH6" class="btn-white-outline" target="_blank">Become a helper</a>
-    </div>
-  </div>
-</section>
+</div>
 
 <!-- FOOTER -->
 <footer>
@@ -978,25 +900,13 @@
 </footer>
 
 <script>
-  const nav = document.querySelector('nav');
-  const navCtas = document.querySelector('.nav-cta-group');
   const hamburger = document.querySelector('.hamburger');
   const mobileMenu = document.querySelector('.mobile-menu');
-
-  function updateHeaderState() {
-    const isScrolled = window.scrollY > 100;
-    nav.classList.toggle('scrolled', isScrolled);
-    if (navCtas) navCtas.classList.toggle('show', isScrolled);
-  }
-
-  updateHeaderState();
-  window.addEventListener('scroll', updateHeaderState);
 
   if (hamburger && mobileMenu) {
     hamburger.addEventListener('click', () => {
       const isOpen = hamburger.classList.toggle('active');
       mobileMenu.classList.toggle('show', isOpen);
-      nav.classList.toggle('menu-open', isOpen);
       hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
 
