@@ -299,15 +299,15 @@
       '}'
     );
 
-    // Show success immediately
-    document.getElementById('review-form').style.display = 'none';
-    document.getElementById('success-state').style.display = 'block';
-    window.scrollTo({top: 0, behavior: 'smooth'});
+    // Open email instantly
+    window.location.href = 'mailto:support@quelpit.ca?subject=' + subject + '&body=' + body;
 
-    // Open email after short delay
+    // Show thank you after delay — gives customer time to send email
     setTimeout(function() {
-      window.location.href = 'mailto:support@quelpit.ca?subject=' + subject + '&body=' + body;
-    }, 500);
+      document.getElementById('review-form').style.display = 'none';
+      document.getElementById('success-state').style.display = 'block';
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    }, 2000);
   }
 </script>
 
