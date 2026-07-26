@@ -24,7 +24,7 @@
     background: rgba(10,10,10,0.95); backdrop-filter: blur(12px);
   }
   .nav-logo { font-family: var(--font-display); font-weight: 700; font-size: 22px; color: var(--white); letter-spacing: -0.5px; text-decoration: none; }
-  .nav-logo span { color: var(--accent-light); }
+  .nav-logo span { color: var(--white); }
   .nav-back { font-size: 14px; color: rgba(255,255,255,0.4); text-decoration: none; }
   .nav-back:hover { color: var(--white); }
 
@@ -48,9 +48,9 @@
 
   .star-selector { display: flex; gap: 12px; margin-bottom: 8px; }
   .star-btn { font-size: 40px; cursor: pointer; color: rgba(255,255,255,0.15); transition: all 0.15s; background: none; border: none; padding: 0; line-height: 1; }
-  .star-btn:hover, .star-btn.selected { color: #F59E0B; transform: scale(1.1); }
+  .star-btn:hover, .star-btn.selected { color: var(--accent-light); transform: scale(1.1); }
   .star-label { font-size: 14px; color: rgba(255,255,255,0.3); min-height: 20px; }
-  .star-label.active { color: #F59E0B; }
+  .star-label.active { color: var(--accent-light); }
 
   .quick-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
   .quick-option {
@@ -307,7 +307,7 @@
       document.getElementById('review-form').style.display = 'none';
       document.getElementById('success-state').style.display = 'block';
       window.scrollTo({top: 0, behavior: 'smooth'});
-    }, 2000);
+    }, 5000);
   }
 </script>
 
