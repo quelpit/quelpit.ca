@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohammad Jamil — Quelpit™ Helper | Toronto</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="shortcut icon" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<meta name="description" content="Mohammad Jamil is a verified Quelpit helper in Toronto. Background checked, identity verified, and ready to help with moving, cleaning, snow removal, yard work and more.">
+<meta property="og:title" content="Mohammad Jamil — Quelpit™ Verified Helper">
+<meta property="og:description" content="Background checked and verified helper in Toronto. Moving, cleaning, snow removal, yard work and more.">
+<meta property="og:image" content="https://quelpit.ca/mohammad-hayat-jamil.jpg">
+<style>
+  :root {
+    --black: #0A0A0A;
+    --white: #FAFAFA;
+    --grey-100: #F4F4F2;
+    --grey-200: #E8E8E4;
+    --grey-400: #9E9E96;
+    --grey-600: #5A5A54;
+    --accent: #2D6A4F;
+    --accent-light: #52B788;
+    --accent-bg: #F0FAF4;
+    --warm: #F7F3EE;
+    --font-display: 'Sora', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); background: var(--white); color: var(--black); font-size: 16px; line-height: 1.6; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px; background: rgba(250,250,250,0.92);
+    backdrop-filter: blur(12px); border-bottom: 1px solid var(--grey-200);
+  }
+  .nav-logo { font-family: var(--font-display); font-weight: 700; font-size: 22px; color: var(--black); letter-spacing: -0.5px; text-decoration: none; }
+  .nav-logo span { color: var(--accent); }
+  .nav-back { font-size: 14px; color: var(--grey-600); text-decoration: none; }
+  .nav-back:hover { color: var(--black); }
+
+  .hero {
+    background: var(--black);
+    padding: 120px 24px 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(82,183,136,0.06) 0%, transparent 70%);
+    top: -200px; right: -100px;
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 48px;
+  }
+  .helper-avatar-large {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 3px solid rgba(82,183,136,0.4);
+    flex-shrink: 0;
+  }
+  .hero-info { flex: 1; }
+  .hero-label {
+    font-size: 12px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--accent-light); margin-bottom: 10px;
+  }
+  .hero-name {
+    font-family: var(--font-display); font-size: clamp(32px, 5vw, 48px);
+    font-weight: 700; color: var(--white); letter-spacing: -1.5px;
+    line-height: 1.1; margin-bottom: 12px;
+  }
+  .hero-area {
+    font-size: 15px; color: rgba(255,255,255,0.4); margin-bottom: 20px;
+  }
+  .hero-badges { display: flex; gap: 10px; flex-wrap: wrap; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 500;
+  }
+  .badge-verified {
+    background: rgba(82,183,136,0.12);
+    border: 1px solid rgba(82,183,136,0.25);
+    color: var(--accent-light);
+  }
+  .badge-checked {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.5);
+  }
+
+  .main { max-width: 800px; margin: 0 auto; padding: 56px 24px 80px; }
+
+  .stats-row {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 16px; margin-bottom: 40px;
+  }
+  .stat-card {
+    background: var(--grey-100); border-radius: 16px; padding: 20px;
+    text-align: center;
+  }
+  .stat-value {
+    font-family: var(--font-display); font-size: 28px; font-weight: 700;
+    color: var(--black); letter-spacing: -1px; margin-bottom: 4px;
+  }
+  .stat-label { font-size: 12px; color: var(--grey-400); text-transform: uppercase; letter-spacing: 1px; }
+
+  .section-title {
+    font-family: var(--font-display); font-size: 20px; font-weight: 700;
+    color: var(--black); letter-spacing: -0.5px; margin-bottom: 16px;
+  }
+  .about-text { font-size: 15px; color: var(--grey-600); line-height: 1.8; margin-bottom: 40px; }
+
+  .services-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; }
+  .service-tag {
+    padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 500;
+    background: var(--accent-bg); color: var(--accent);
+    border: 1px solid rgba(45,106,79,0.15);
+  }
+
+  .lang-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 40px; }
+  .lang-tag {
+    padding: 6px 14px; border-radius: 100px; font-size: 13px;
+    background: var(--grey-100); color: var(--grey-600);
+    border: 1px solid var(--grey-200);
+  }
+
+  .trust-block {
+    background: var(--black); border-radius: 20px; padding: 28px;
+    margin-bottom: 40px;
+  }
+  .trust-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .trust-item:last-child { border-bottom: none; }
+  .trust-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent-light); flex-shrink: 0; margin-top: 6px;
+  }
+  .trust-text { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.6; }
+  .trust-text strong { color: var(--white); font-weight: 500; }
+
+  .reviews-section { margin-bottom: 40px; }
+  .no-reviews {
+    background: var(--grey-100); border-radius: 16px; padding: 32px;
+    text-align: center; color: var(--grey-400); font-size: 14px;
+  }
+
+  .book-cta {
+    background: var(--accent-bg); border: 1.5px solid rgba(45,106,79,0.15);
+    border-radius: 20px; padding: 32px; text-align: center;
+  }
+  .book-cta h3 {
+    font-family: var(--font-display); font-size: 22px; font-weight: 700;
+    color: var(--black); letter-spacing: -0.5px; margin-bottom: 8px;
+  }
+  .book-cta p { font-size: 14px; color: var(--grey-600); margin-bottom: 24px; }
+  .btn-book {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 14px 32px; border-radius: 100px; font-size: 15px; font-weight: 600;
+    font-family: var(--font-display); background: var(--accent); color: var(--white);
+    text-decoration: none; transition: all 0.2s; border: none; cursor: pointer;
+  }
+  .btn-book:hover { background: var(--black); transform: translateY(-1px); }
+
+  footer { background: var(--black); padding: 40px 24px; text-align: center; border-top: 1px solid rgba(255,255,255,0.06); }
+  .footer-text { font-size: 13px; color: rgba(255,255,255,0.3); margin-bottom: 6px; }
+  .footer-text a { color: var(--accent-light); text-decoration: none; }
+
+  .review-card {
+    background: var(--grey-100);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    border: 1px solid var(--grey-200);
+  }
+  .review-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .reviewer-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+  }
+  .review-date { font-size: 12px; color: var(--grey-400); }
+  .review-stars { color: #F59E0B; font-size: 15px; margin-bottom: 6px; }
+  .review-service {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 8px;
+    background: var(--accent-bg);
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 100px;
+  }
+  .review-text {
+    font-size: 14px;
+    color: var(--grey-600);
+    line-height: 1.7;
+  }
+  .verified-booking {
+    font-size: 11px;
+    color: var(--accent-light);
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  @media (max-width: 768px) {
+    .stats-row { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    nav { padding: 16px 24px; }
+    .hero-inner { flex-direction: column; gap: 24px; text-align: center; }
+    .hero-badges { justify-content: center; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .services-grid { gap: 8px; }
+    .service-tag { font-size: 12px; padding: 6px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Quelpit™<span>.</span></a>
+  <a href="helpers.html" class="nav-back">← All helpers</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <img src="mohammad-hayat-jamil.jpg" alt="Mohammad Jamil — Quelpit Helper" class="helper-avatar-large">
+    <div class="hero-info">
+      <div class="hero-label">Verified Helper</div>
+      <div class="hero-name">Mohammad Jamil</div>
+      <div class="hero-area">📍 Toronto</div>
+      <div class="hero-badges">
+        <span class="badge badge-verified">✓ Background checked</span>
+        <span class="badge badge-verified">✓ Identity verified</span>
+        <span class="badge badge-checked">New helper</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-value" id="stat-bookings">2</div>
+      <div class="stat-label">Bookings</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="stat-rating">—</div>
+      <div class="stat-label">Rating</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">$20+</div>
+      <div class="stat-label">Per hour</div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="section-title">About Mohammad</div>
+  <div class="about-text">Mohammad is a dependable, hardworking helper on the Quelpit platform, ready to take on all types of home service jobs across Toronto. Whether it's moving, cleaning, yard work, or general help around the house, Mohammad brings a strong work ethic and a get-it-done attitude to every booking.</div>
+
+  <!-- SERVICES -->
+  <div class="section-title">Services offered</div>
+  <div class="services-grid">
+    <span class="service-tag">Moving & Heavy Labour</span>
+    <span class="service-tag">Deep Cleaning</span>
+    <span class="service-tag">Standard Cleaning</span>
+    <span class="service-tag">Snow Removal</span>
+    <span class="service-tag">General Help & Errands</span>
+    <span class="service-tag">Decluttering & Sorting</span>
+    <span class="service-tag">Pre & Post Move Clean</span>
+    <span class="service-tag">Yard & Garden Help</span>
+  </div>
+
+  <!-- LANGUAGES -->
+  <div class="section-title">Languages</div>
+  <div class="lang-row">
+    <span class="lang-tag">English</span>
+  </div>
+
+  <!-- TRUST -->
+  <div class="section-title">Verified by Quelpit™</div>
+  <div class="trust-block">
+    <div class="trust-item">
+      <div class="trust-dot"></div>
+      <div class="trust-text"><strong>Criminal background check passed</strong> — verified before first booking</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-dot"></div>
+      <div class="trust-text"><strong>Identity verified</strong> — government-issued photo ID confirmed</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-dot"></div>
+      <div class="trust-text"><strong>Work authorization confirmed</strong> — eligible to work in Canada</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-dot"></div>
+      <div class="trust-text"><strong>Reviews are permanent</strong> — all ratings verified against completed bookings and visible forever</div>
+    </div>
+  </div>
+
+  <!-- REVIEWS -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+    <div class="section-title" style="margin-bottom:0;">Reviews <span id="review-count" style="font-size:14px;color:#9E9E96;font-weight:400;"></span></div>
+    <div id="star-summary" style="display:none;align-items:center;gap:6px;">
+      <span id="avg-stars" style="font-family:'Sora',sans-serif;font-size:22px;font-weight:700;color:#0A0A0A;"></span>
+      <div id="avg-star-display" style="color:#F59E0B;font-size:18px;"></div>
+    </div>
+  </div>
+  <div class="reviews-section" id="reviews-container">
+    <div class="no-reviews" id="no-reviews-msg">No reviews yet — Mohammad has completed 2 bookings — a garage clean-up and a yard clean-up. Reviews coming soon.</div>
+  </div>
+
+  <!-- BOOK CTA -->
+  <div class="book-cta">
+    <h3>Book Mohammad today</h3>
+    <p>Available across Toronto. Submit a booking request and we'll confirm with Mohammad within 2 hours.</p>
+    <a href="https://forms.gle/fZ7qRDQeyuPhdc4n8" target="_blank" class="btn-book">Book now →</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-text">Questions? Email <a href="mailto:support@quelpit.ca">support@quelpit.ca</a></div>
+  <div class="footer-text">© 2026 Quelpit™. All rights reserved. &nbsp;|&nbsp; <a href="privacy-policy.html">Privacy</a> &nbsp;|&nbsp; <a href="terms.html">Terms</a></div>
+</footer>
+
+<script>
+  const REVIEWS_URL = 'https://quelpit.ca/reviews.json';
+  const HELPER_ID = 'mohammad-hayat-jamil';
+
+  async function loadReviews() {
+    try {
+      const res = await fetch(REVIEWS_URL + '?t=' + Date.now());
+      const data = await res.json();
+      const helperData = data.helpers[HELPER_ID];
+      if (!helperData || !helperData.reviews || helperData.reviews.length === 0) return;
+
+      const reviews = helperData.reviews;
+      const container = document.getElementById('reviews-container');
+      const noMsg = document.getElementById('no-reviews-msg');
+      const countEl = document.getElementById('review-count');
+      const statRating = document.getElementById('stat-rating');
+      const starSummary = document.getElementById('star-summary');
+      const avgStars = document.getElementById('avg-stars');
+      const avgStarDisplay = document.getElementById('avg-star-display');
+
+      const avg = reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
+      const avgRounded = Math.round(avg * 10) / 10;
+
+      statRating.textContent = avgRounded.toFixed(1);
+      countEl.textContent = '(' + reviews.length + ')';
+
+      starSummary.style.display = 'flex';
+      avgStars.textContent = avgRounded.toFixed(1);
+      avgStarDisplay.textContent = '★'.repeat(Math.round(avg)) + '☆'.repeat(5 - Math.round(avg));
+
+      if (noMsg) noMsg.style.display = 'none';
+
+      reviews.slice().reverse().forEach(review => {
+        const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+        const card = document.createElement('div');
+        card.className = 'review-card';
+        card.innerHTML = `
+          <div class="review-header">
+            <div class="reviewer-name">${review.name}</div>
+            <div class="review-date">${review.date}</div>
+          </div>
+          <div class="review-stars">${stars}</div>
+          ${review.service ? `<div class="review-service">${review.service}</div>` : ''}
+          ${review.text ? `<div class="review-text">"${review.text}"</div>` : ''}
+          <div class="verified-booking">✓ Verified booking</div>
+        `;
+        container.appendChild(card);
+      });
+
+    } catch (e) {
+      console.log('Reviews not loaded yet:', e);
+    }
+  }
+
+  loadReviews();
+</script>
+</body>
+</html>
